@@ -6,7 +6,7 @@ module.exports = {
   title: 'Blog by Third9',
   subtitle: '',
   copyright: '© All rights reserved.',
-  disqusShortname: '',
+  disqusShortname: 'third9',
   postsPerPage: 4,
   googleAnalyticsId: '',
   useKatex: false,
