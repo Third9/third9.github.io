@@ -83,14 +83,6 @@
   Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
   Link: </commons-c928d4d801d35a1e0aaa.js>; rel=preload; as=script
   Link: </component---src-templates-page-template-js-814e63885548285c5ec8.js>; rel=preload; as=script
-/pages/about/
-  Link: </webpack-runtime-26e5b6ae6ee66d3c4148.js>; rel=preload; as=script
-  Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
-  Link: </commons-c928d4d801d35a1e0aaa.js>; rel=preload; as=script
-  Link: </app-1d3e6cf4b7cef846984e.js>; rel=preload; as=script
-  Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
-  Link: </commons-c928d4d801d35a1e0aaa.js>; rel=preload; as=script
-  Link: </component---src-templates-page-template-js-814e63885548285c5ec8.js>; rel=preload; as=script
 /posts/DRF(Django-Rest-Framework)를_이용한_pagination/search_기능_구현/
   Link: </webpack-runtime-26e5b6ae6ee66d3c4148.js>; rel=preload; as=script
   Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
@@ -99,6 +91,14 @@
   Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
   Link: </commons-c928d4d801d35a1e0aaa.js>; rel=preload; as=script
   Link: </component---src-templates-post-template-js-60157e4eb8bf6120b802.js>; rel=preload; as=script
+/pages/about/
+  Link: </webpack-runtime-26e5b6ae6ee66d3c4148.js>; rel=preload; as=script
+  Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
+  Link: </commons-c928d4d801d35a1e0aaa.js>; rel=preload; as=script
+  Link: </app-1d3e6cf4b7cef846984e.js>; rel=preload; as=script
+  Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
+  Link: </commons-c928d4d801d35a1e0aaa.js>; rel=preload; as=script
+  Link: </component---src-templates-page-template-js-814e63885548285c5ec8.js>; rel=preload; as=script
 /posts/sentry_server_설치/
   Link: </webpack-runtime-26e5b6ae6ee66d3c4148.js>; rel=preload; as=script
   Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
