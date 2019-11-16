@@ -91,14 +91,6 @@
   Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
   Link: </commons-31d40243320f085c035a.js>; rel=preload; as=script
   Link: </component---src-templates-page-template-js-814e63885548285c5ec8.js>; rel=preload; as=script
-/posts/SSL_인증서_정보 추출 및 검증/
-  Link: </webpack-runtime-26e5b6ae6ee66d3c4148.js>; rel=preload; as=script
-  Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
-  Link: </commons-31d40243320f085c035a.js>; rel=preload; as=script
-  Link: </app-25674521758bc517ea9c.js>; rel=preload; as=script
-  Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
-  Link: </commons-31d40243320f085c035a.js>; rel=preload; as=script
-  Link: </component---src-templates-post-template-js-60157e4eb8bf6120b802.js>; rel=preload; as=script
 /pages/contacts/
   Link: </webpack-runtime-26e5b6ae6ee66d3c4148.js>; rel=preload; as=script
   Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
@@ -107,6 +99,14 @@
   Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
   Link: </commons-31d40243320f085c035a.js>; rel=preload; as=script
   Link: </component---src-templates-page-template-js-814e63885548285c5ec8.js>; rel=preload; as=script
+/posts/Python으로_SSL_인증서_정보 추출 및 검증/
+  Link: </webpack-runtime-26e5b6ae6ee66d3c4148.js>; rel=preload; as=script
+  Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
+  Link: </commons-31d40243320f085c035a.js>; rel=preload; as=script
+  Link: </app-25674521758bc517ea9c.js>; rel=preload; as=script
+  Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
+  Link: </commons-31d40243320f085c035a.js>; rel=preload; as=script
+  Link: </component---src-templates-post-template-js-60157e4eb8bf6120b802.js>; rel=preload; as=script
 /posts/sentry_server_설치/
   Link: </webpack-runtime-26e5b6ae6ee66d3c4148.js>; rel=preload; as=script
   Link: </styles-202e1dd43dc66df3b3e9.js>; rel=preload; as=script
