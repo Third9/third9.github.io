@@ -1,16 +1,16 @@
 ---
-title: SSL 인증서 정보 추출 및 검증
+title: Python으로 SSL 인증서 정보 추출 및 검증
 date: "2019-11-12 17:12:20.505883"
 template: "post"
 draft: false
-slug: "/posts/SSL_인증서_정보 추출 및 검증/"
+slug: "/posts/Python으로_SSL_인증서_정보 추출 및 검증/"
 category: "Develop"
 tags:
   - "SSL"
   - "python3"
   - "cryptography"
   - "OpenSSL"
-description: "cryptography와 OpenSSL 모듈을 이용하여 SSL 인증서의 정보 추출 및 활용."
+description: "Python의 cryptography와 OpenSSL 모듈을 이용하여 SSL 인증서의 정보 추출 및 활용."
 ---
 
 
