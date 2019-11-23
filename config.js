@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  url: 'https://third9.netlify.com',
+  url: 'https://third9.github.io',
   pathPrefix: '/',
   title: 'Blog by Third9',
   subtitle: '',
