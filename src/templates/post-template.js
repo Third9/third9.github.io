@@ -30,6 +30,7 @@ export const query = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      tableOfContents
       fields {
         slug
         tagSlugs
@@ -40,6 +41,10 @@ export const query = graphql`
         tags
         title
         socialImage
+      }
+      headings {
+        value
+        depth
       }
     }
   }

@@ -36,7 +36,60 @@
     }
 
   }
+  &__toc {
+    position: fixed;
+    @media (max-width: 1023px) {
+      display: none;
+    }
+    &-list {
+      text-decoration: non;
+      width: 320px;
+      padding: 30px 0px;
+      margin: 0;
+      position: absolute;
+      right: -20em;
+      @media (max-width: 1599px) {
+        right: -74rem;
+        width: 15rem;
+      }
+      @media (max-width: 1399px) {
+        right: -72rem;
+        width: 15rem;
+      }
+      @media (max-width: 1025px) {
+        right: -14rem;
+        width: 12rem;
+      }
+      &-item {
+        list-style: none;
+        margin: 0px;
+        padding: 0.15em 0.75rem;
+        color: #adb5bd;
 
+        &.active {
+          color: black;
+          font-weight: 500;
+          &::before {
+            content: "{ ";
+          }
+          &::after {
+            content: " }";
+          }
+        }
+        &-link {
+          color: inherit;
+          &:hover {
+            color: inherit;
+            font-weight: 0;
+          }
+          &:focus,
+          &:active {
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
 }
 
 @include breakpoint-md {
@@ -58,5 +111,55 @@
     }
 
   }
+  &__toc {
+    position: fixed;
+    top: 0;
+    font-size: 0.75rem;
+    @media (max-width: 1000px) {
+      // display: none;
+    }
+    &-list {
+      text-decoration: non;
+      width: 320px;
+      padding: 30px 0px;
+      margin: 0;
+      position: absolute;
+      right: -20em;
+      @media (max-width: 1599px) {
+        right: -4rem;
+        width: 10rem;
+      }
+      @media (max-width: 1399px) {
+        right: -12rem;
+      }
+      &-item {
+        list-style: none;
+        margin: 0px;
+        padding: 0.15em 0.75rem;
+        color: #adb5bd;
 
+        &.active {
+          color: black;
+          font-weight: 500;
+          &::before {
+            content: "{ ";
+          }
+          &::after {
+            content: " }";
+          }
+        }
+        &-link {
+          color: inherit;
+          &:hover {
+            color: inherit;
+            font-weight: 0;
+          }
+          &:focus,
+          &:active {
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
 }

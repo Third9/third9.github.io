@@ -8,6 +8,7 @@ import Meta from './Meta';
 import Tags from './Tags';
 import styles from './Post.module.scss';
 import type { Node } from '../../types';
+import kebabCase from 'lodash/kebabCase';
 
 type Props = {
   post: Node
@@ -17,10 +18,29 @@ const Post = ({ post }: Props) => {
   const { html } = post;
   const { tagSlugs, slug } = post.fields;
   const { tags, title, date } = post.frontmatter;
+  const tableOfContents = (
+      <ul className={styles['post__toc-list']}>
+        <li>
+          <label>{title}</label>
+        </li>
+        {post &&
+          post.headings.map(header => (
+            <li className={styles['post__toc-list-item']} key={header.value} style={{ paddingLeft: `${header.depth - 1}rem` }}>
+              <Link to={`${slug}#${kebabCase(header.value)}`} className={styles['post__toc-list-item-link']} >
+                {header.value}
+              </Link>
+            </li>
+          ))}
+      </ul>
+    )
 
   return (
     <div className={styles['post']}>
       <Link className={styles['post__home-button']} to="/">All Articles</Link>
+
+      <div className={styles['post__toc']} >
+        {tableOfContents}
+      </div>
 
       <div className={styles['post__content']}>
         <Content body={html} title={title} />
