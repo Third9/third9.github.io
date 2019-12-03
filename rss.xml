@@ -1,4 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog by Third9]]></title><description><![CDATA[Blog by Third9]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 24 Nov 2019 08:26:10 GMT</lastBuildDate><item><title><![CDATA[github 블로그 운영하기 with gatsby]]></title><description><![CDATA[정적 사이트 생성기인 gatsby를 이용하여 github에 블로그 생성 및 posting 하는법을 다룹니다.]]></description><link>https://third9.github.io/posts/github_블로그_운영하기_with_gatsby/</link><guid isPermaLink="false">https://third9.github.io/posts/github_블로그_운영하기_with_gatsby/</guid><pubDate>Sat, 23 Nov 2019 04:30:53 GMT</pubDate><content:encoded>&lt;h2 id=&quot;intro&quot;&gt;&lt;a href=&quot;#intro&quot; aria-label=&quot;intro permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;intro&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog by Third9]]></title><description><![CDATA[Blog by Third9]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 03 Dec 2019 11:18:35 GMT</lastBuildDate><item><title><![CDATA[openstack contributor 도전]]></title><description><![CDATA[정적 사이트 생성기인 gatsby를 이용하여 github에 블로그 생성 및 posting 하는법을 다룹니다.]]></description><link>https://third9.github.io/posts/openstack_contributor_도전/</link><guid isPermaLink="false">https://third9.github.io/posts/openstack_contributor_도전/</guid><pubDate>Sun, 01 Dec 2019 01:18:45 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;오픈스택을 공부하면서 간단한 철자 오류를 수정하고 싶어서 github에 올렸더니 contributor가 되려면 그냥 PR 하는 방법이 아닌 여러가지 단계를 거치기에 직접 시도해 본 내용을 글로 남깁니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;처음에는 일반적인 github 방식대로 Fork 한 뒤에 수정해서 PR을 했더니 PR 글 밑에 아래와 같은 답변을 줬습니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Thank you for contributing to openstack/cinder!
+
+openstack/cinder uses Gerrit for code review.
+
+If you have never contributed to OpenStack before make sure you have read the getting started documentation: http://docs.openstack.org/infra/manual/developers.html#getting-started
+
+Otherwise please visit http://docs.openstack.org/infra/manual/developers.html#development-workflow and follow the instructions there to upload your change to Gerrit.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그래서 설명대로 링크를 찾아가 보니, 뭔가 엄청 많고 불친절한 영어의 압박…
+내용을 읽어보면 우선 &lt;code class=&quot;language-text&quot;&gt;lunchpad&lt;/code&gt;에 계정을 등록하라고 합니다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;contributer 를 위해서는 코드리뷰를 해야 하는데 코드리뷰 시스템에 사용되는 계정이 open id 를 이용하기 때문에 그걸 등록해야 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://login.launchpad.net&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;lunchpad 링크&lt;/a&gt;로 이동해서 회원가입을 하고, 회원가입도 했으면 이제 &lt;a href=&quot;https://review.openstack.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://review.openstack.org/&lt;/a&gt; 로 이동합니다.
+여기 가서 오른쪽 상단을 보면 로그인 할 수 있게 되어있고, &lt;code class=&quot;language-text&quot;&gt;open id&lt;/code&gt; 에 로그인이 된 상태면 손쉽게 로그인이 가능합니다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;아래의 순서대로 진행하면 됩니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;로그인 후에 오른쪽 상단의 이름을 선택하면 &lt;code class=&quot;language-text&quot;&gt;setting&lt;/code&gt; 버튼이 있습니다.&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;setting&lt;/code&gt; 화면에서 &lt;code class=&quot;language-text&quot;&gt;profile&lt;/code&gt;탭에 &lt;code class=&quot;language-text&quot;&gt;username&lt;/code&gt;을 등록하고, &lt;code class=&quot;language-text&quot;&gt;contact information&lt;/code&gt;은 내 개인정보를 등록하면 됩니다.&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ssh public keys&lt;/code&gt;탭으로 이동해서 공용키를 등록하고, 없으면 터미널에서 &lt;code class=&quot;language-text&quot;&gt;ssh-keygen&lt;/code&gt; 을 실행하면 됩니다.
+&lt;code class=&quot;language-text&quot;&gt;(*공용키 생성부터 등록까지의 방법도 해당 탭에 &amp;quot;How to Generate an SSH Key&amp;quot; 라는 이름으로 잘 설명되 있습니다.)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;Agreements&lt;/code&gt;탭으로 이동해서 개인용 인증 라이센스를 발급 받으면 코드리뷰를 위한 기본 계정 생성 작업은 끝납니다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;그 다음 부터는 맨 위에서 나온 getting-started 가이드를 보면서 다시 진행하면 됩니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; config --global user.name xxxxx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;설명 그대로 진행해서 git 전역 환경설정에 이름과 주소를 등록합니다.
+여기까지 했으면 이제 &lt;code class=&quot;language-text&quot;&gt;git-review&lt;/code&gt;를 설치합니다, 설치 방법은 자신의 환경 및 선호도에 따라서 다양하게 나와있습니다.
+이제 여기 까지 잘 됬는지 확인을 해보죠 아래의 명령어를 터미널에서 입력합니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;#shell&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ssh&lt;/span&gt; -p &lt;span class=&quot;token number&quot;&gt;29418&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;username&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;@review.openstack.org
+&lt;span class=&quot;token comment&quot;&gt;# {username} 위치에는 아까 코드리뷰 등록할때 만든 username을 등록해야 한다.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;잘됬으면 Welcome 어쩌구 저쩌구 하는 환영의 메시지가 나옵니다.
+그럼 이제 원하는 프로젝트를 골라서 git으로 다운받으면 됩니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; clone ssh://&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;username&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;@review.openstack.org:29418/&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;repo project name&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;내가 원하는 프로젝트 이름을 입력했는데 안되면 해당 &lt;a href=&quot;https://review.openstack.org/#/admin/projects/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;링크&lt;/a&gt; 로 들어가서 검색하면 됩니다.
+해당 repo를 다운받은 뒤에 디렉토리로 이동해서 아래의 명령어를 입력해 줍니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; review -s&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;명령어를 입력하면, 공용키 비밀번호를 입력하라고 나옵니다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;에러가 발생한 경우&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; remote &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; gerrit ssh://&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;username&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;@review.openstack.org:29418/&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;repo project name&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;그 이후에는 아래의 명령어 입력&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; remote update&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;우선 브랜치를 새로 생성하고요 &lt;a href=&quot;https://docs.openstack.org/infra/manual/developers.html#starting-a-change&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;링크 참조&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout -b &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;브랜치명&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;브랜치 명은 보통 &lt;code class=&quot;language-text&quot;&gt;bp/{내용}&lt;/code&gt; 형태로 하는듯 한데, review 사이트를 가보면 각각 다릅니다, 최대한 링크의 설명대로 맞춰서 작성하죠.
+코드를 다 수정했으면 그 이후에는&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; commit -a&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;를 통해서 수정된 내역을 커밋. 커밋 로그 작성 방식은 위의 링크를 참조합니다.&lt;/p&gt;
+&lt;p&gt;커밋을 하였으면 &lt;code class=&quot;language-text&quot;&gt;git show&lt;/code&gt;명령어를 이용하여 커밋이 됬는지 확인 후 &lt;code class=&quot;language-text&quot;&gt;git review&lt;/code&gt;명령어를 실행하면 되는데,
+아래와 같은 에러가 나오는 경우가 있습니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;fatal: ICLA contributor agreement requires current contact information.
+
+Please review your contact information:
+
+  https://review.openstack.org/#/settings/contact
+
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이런 경우는 openstack review 사이트의 &lt;code class=&quot;language-text&quot;&gt;setting&lt;/code&gt;항목에서 &lt;code class=&quot;language-text&quot;&gt;contact inforamtion&lt;/code&gt; 이 등록되어 있지 않아서, 그런 경우로 해당 경로로 이동해서 간단하게 메일주소와 국가를 입력해서 저장 하면됩니다.
+잽싸게 등록하고 아무문제 없이 저장이 된경우 &lt;code class=&quot;language-text&quot;&gt;git review&lt;/code&gt; 명령어를 실행하면…&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;remote: Processing changes: new: 1, refs: 1, done
+remote:
+remote: New Changes:
+remote:   https://review.openstack.org/xxxxxx your commit msg
+remote:
+To ssh://yourname@review.openstack.org:29418/openstack/cinder
+ * [new branch]      HEAD -&amp;gt; refs/publish/master/bp/branch&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;위와 같은 이런저런 review사이트에 등록되었다는 메시지가 나옵니다.(개인내용은 임의로 수정했습니다.)&lt;/p&gt;
+&lt;p&gt;하지만 &lt;code class=&quot;language-text&quot;&gt;contact information&lt;/code&gt; 저장에서 &lt;code class=&quot;language-text&quot;&gt;Code Review - Error server error&lt;/code&gt; 에러가 나온다면 해당
+&lt;a href=&quot;https://ask.openstack.org/en/question/56720/cannot-store-contact-information-when-updating-info-in-openstack-gerrit/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;링크&lt;/a&gt;를 참조합니다.
+openstack.org 에서 계정이 등록되어있지 않아서 그런 경우로 review 사이트와 동일한 email 주소로 등록을 해줍니다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;git review&lt;/code&gt; 실행 후 나온 review사이트 주소로 들어가면 본인이 등록한 review글이 보이고,
+처음 등록한 경우에는 reviewers 명단에 &lt;code class=&quot;language-text&quot;&gt;Welcome, new contributor!&lt;/code&gt; 라는 메시지가 나옵니다. &lt;/p&gt;
+&lt;p&gt;성공적으로 작동 후 결과가 나오는 데는 시간이 조금 걸립니다. 다시 수정해야 하는 경우.
+review시스템에 등록한 상태에서 다른 CI들과 함께 jenkins가 테스트를 한 뒤 승인을 하는데,
+테스트에서 실패가 발생하는 경우 코드를 다시 수정해서 올릴 수 있습니다.&lt;/p&gt;
+&lt;p&gt;에러가 난 코드를 확인 한 뒤 &lt;code class=&quot;language-text&quot;&gt;git commit -a --amend&lt;/code&gt; 명령어를 이용해서 다시 커밋하고,
+&lt;code class=&quot;language-text&quot;&gt;git review&lt;/code&gt; 로 review시스템에 다시 등록하면 됩니다.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[github 블로그 운영하기 with gatsby]]></title><description><![CDATA[정적 사이트 생성기인 gatsby를 이용하여 github에 블로그 생성 및 posting 하는법을 다룹니다.]]></description><link>https://third9.github.io/posts/github_블로그_운영하기_with_gatsby/</link><guid isPermaLink="false">https://third9.github.io/posts/github_블로그_운영하기_with_gatsby/</guid><pubDate>Sat, 23 Nov 2019 04:30:53 GMT</pubDate><content:encoded>&lt;h2 id=&quot;intro&quot;&gt;&lt;a href=&quot;#intro&quot; aria-label=&quot;intro permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;intro&lt;/h2&gt;
 &lt;p&gt;이전부터 github으로 블로그를 하기위해서 생각만 하고 있었는데 실제로 실천할때가 되니, react를 이용한 서비스까지 나왔네요. 개인적으로 react를 선호하기에 react 기반의 &lt;code class=&quot;language-text&quot;&gt;gatsby&lt;/code&gt;를 이용하였습니다.&lt;/p&gt;
 &lt;p&gt;우선 gatsby를 비롯한 다른 대부분의 정적 사이트 생성기는 node를 기반으로 하기에, 해당 pc 환경에 node.js 및 사용하려는 환경에 맞추어 기본 설치가 필요합니다. 이러한 부분은 여기서는 다루지 않겠습니다.&lt;/p&gt;
 &lt;p&gt;저는 mac os 환경에서 진행을 하였고, 기본 환경이 다 이루어져있다는 가정하에 진행을 하겠습니다.&lt;/p&gt;
