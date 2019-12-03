@@ -1,7 +1,7 @@
 /** 
  * Generic
  */
-html {
+ html {
   font-size: $typographic-root-font-size;
 }
 
@@ -89,7 +89,6 @@ hr {
   margin-left: auto;
   background-size: 100% 26px;
   background-image: linear-gradient(to bottom, transparent 1px, transparent 11px, $color-base 11px, $color-base 15px, transparent 15px, transparent 26px);
-  width: 100px;
 }
 
 a {
@@ -126,10 +125,19 @@ p {
 }
 
 blockquote {
-  padding: 0;
-  font-style: italic;
-  text-align: center;
+  border-left: .25em solid #dfe2e5;
+  color: #6a737d;
+  padding: 0 1em;
 }
+
+blockquote>:first-child {
+  margin-top: 0;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0;
+}
+
 
 figure {
   display: block;
@@ -167,4 +175,59 @@ figcaption {
     float: left;
   }
 
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+table {
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+table th {
+  font-weight: 600;
+}
+
+table td,
+table th {
+  border: 1px solid #dfe2e5;
+  padding: 6px 13px;
+}
+
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+input {
+  font: inherit;
+  margin: 0;
+}
+
+input {
+  overflow: visible;
+}
+
+[type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
