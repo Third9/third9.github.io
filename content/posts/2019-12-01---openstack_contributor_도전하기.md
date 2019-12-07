@@ -7,8 +7,9 @@ slug: "/posts/openstack_contributor_도전/"
 category: "develop"
 tags:
   - "openstack"
-  - "github"
-description: "정적 사이트 생성기인 gatsby를 이용하여 github에 블로그 생성 및 posting 하는법을 다룹니다."
+  - "git"
+  - "contributor"
+description: "Openstack을 사용하면서 코드를 내가 수정한 부분을 openstack에 반영 했던것에 대한 정리글입니다."
 ---
 
 >오픈스택을 공부하면서 간단한 철자 오류를 수정하고 싶어서 github에 올렸더니 contributor가 되려면 그냥 PR 하는 방법이 아닌 여러가지 단계를 거치기에 직접 시도해 본 내용을 글로 남깁니다.
