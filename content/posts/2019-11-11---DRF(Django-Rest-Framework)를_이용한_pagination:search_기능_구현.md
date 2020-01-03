@@ -4,7 +4,7 @@ date: "2019-11-11 19:30:33.046034"
 template: "post"
 draft: false
 slug: "/posts/DRF(Django-Rest-Framework)를_이용한_pagination/search_기능_구현/"
-category: "Develop"
+category: "develop"
 tags:
   - "Python"
   - "Django"

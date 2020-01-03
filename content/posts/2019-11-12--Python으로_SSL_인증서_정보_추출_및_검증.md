@@ -4,7 +4,7 @@ date: "2019-11-12 17:12:20.505883"
 template: "post"
 draft: false
 slug: "/posts/Python으로_SSL_인증서_정보 추출 및 검증/"
-category: "Develop"
+category: "develop"
 tags:
   - "SSL"
   - "python3"

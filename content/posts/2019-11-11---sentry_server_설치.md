@@ -4,7 +4,7 @@ date: "2019-11-11 19:27:46.081432"
 template: "post"
 draft: false
 slug: "/posts/sentry_server_설치/"
-category: "Develop"
+category: "develop"
 tags:
   - "Sentry"
   - "python"
