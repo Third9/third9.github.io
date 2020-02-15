@@ -1,9 +1,9 @@
 ---
-title: github 블로그 운영하기 with gatsby
+title: github와 gatsby로 블로그 운영하기
 date: "2019-11-23 13:30:53.297331"
 template: "post"
 draft: false
-slug: "/posts/github_블로그_운영하기_with_gatsby/"
+slug: "/posts/github와_gatsby로_블로그_운영하기/"
 category: "etc"
 tags:
   - "react"
