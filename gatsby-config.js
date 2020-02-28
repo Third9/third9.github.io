@@ -212,7 +212,7 @@ module.exports = {
         host: 'https://third9.github.io',
         sitemap: 'https://third9.github.io/sitemap.xml',
         policy: [{ 
-          userAgent: ['Googlebot','DAUMOA', 'NaverBot', 'ZumBot'], 
+          userAgent: ['Googlebot','DAUMOA', 'Yeti', 'ZumBot'], 
           allow: '/' }]
       }
     },
