@@ -206,6 +206,16 @@ module.exports = {
         }
       }
     },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://third9.github.io',
+        sitemap: 'https://third9.github.io/sitemap.xml',
+        policy: [{ 
+          userAgent: ['Googlebot','DAUMOA', 'NaverBot', 'ZumBot'], 
+          allow: '/' }]
+      }
+    },
     'gatsby-plugin-flow',
     'gatsby-plugin-optimize-svgs',
   ]
