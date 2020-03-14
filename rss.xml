@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Third9's Lounge]]></title><description><![CDATA[Third9's Lounge]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 14 Mar 2020 06:37:54 GMT</lastBuildDate><item><title><![CDATA[네이버 카페 Crawling 하기:인증 수행]]></title><description><![CDATA[개발자 아빠의 어린이집 사진 수집하는 법]]></description><link>https://third9.github.io/posts/네이버_카페_crawling1/</link><guid isPermaLink="false">https://third9.github.io/posts/네이버_카페_crawling1/</guid><pubDate>Sat, 14 Mar 2020 05:51:13 GMT</pubDate><content:encoded>&lt;h2 id=&quot;네이버-카페-crawling&quot;&gt;&lt;a href=&quot;#%EB%84%A4%EC%9D%B4%EB%B2%84-%EC%B9%B4%ED%8E%98-crawling&quot; aria-label=&quot;네이버 카페 crawling permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;네이버 카페 Crawling&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Third9's Lounge]]></title><description><![CDATA[Third9's Lounge]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 14 Mar 2020 06:41:49 GMT</lastBuildDate><item><title><![CDATA[네이버 카페 Crawling 하기:인증 수행]]></title><description><![CDATA[개발자 아빠의 어린이집 사진 수집하는 법]]></description><link>https://third9.github.io/posts/네이버_카페_crawling1/</link><guid isPermaLink="false">https://third9.github.io/posts/네이버_카페_crawling1/</guid><pubDate>Sat, 14 Mar 2020 05:51:13 GMT</pubDate><content:encoded>&lt;h2 id=&quot;네이버-카페-crawling&quot;&gt;&lt;a href=&quot;#%EB%84%A4%EC%9D%B4%EB%B2%84-%EC%B9%B4%ED%8E%98-crawling&quot; aria-label=&quot;네이버 카페 crawling permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;네이버 카페 Crawling&lt;/h2&gt;
 &lt;p&gt;아이의 어린이집에서 운영하는 카페에 매일 올라오는 사진을 매번 내려받기가 귀찮아서 네이버 카페 crawler를 만들게 되었다. 일주일에 몇 번씩 불규칙하게 올라오는 자녀의 사진을 저장하는 건 생각보다 많은 시간과 에너지를 소모한다.&lt;/p&gt;
 &lt;p&gt;주력으로 사용하는 python을 이용해서 처음에는 &lt;a href=&quot;https://www.selenium.dev&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;selenium&lt;/code&gt;&lt;/a&gt;을 가져다가 손쉽게 만들 수 있을 것이라 생각했지만, 네이버의 인증은 생각보다 호락호락하지 않았다. &lt;/p&gt;
 &lt;p&gt;selenium을 이용한 인증 방식은 모두 네이버 측에서 사람이 안한걸로 체크하고 걸러내더라, 사람이 하는 것처럼 키입력 방식과 딜레이를 두어도 다 걸러냈다. 그 와중에 알게 된 새로운 headless browser인 &lt;a href=&quot;https://github.com/puppeteer/puppeteer&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;puppeteer&lt;/code&gt;&lt;/a&gt;를 사용해 봤는데 이건 잘되더라, node.js로 만들어져 있어서 언어를 js로 바꿔서 해야 하나 했는데… 이걸 python으로 포팅한 &lt;a href=&quot;https://github.com/miyakogi/pyppeteer&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;pyppeteer&lt;/code&gt;&lt;/a&gt; 라는 비공식 프로젝트가 존재했다. 이제 python과 pyppeteer를 이용해서 crawler를 만들었던 내용을 정리한다.&lt;/p&gt;
@@ -102,7 +102,50 @@ elems_login_and_device_add &lt;span class=&quot;token operator&quot;&gt;=&lt;/sp
 &lt;/blockquote&gt;
 &lt;p&gt;위의 코드에서는 login 상태가 유지되지 않도록 하였다. 여기까지 하였다면 pyppeteer를 이용하여 naver 인증을 마치는 부분 까지 완료됬다. 다만, 이렇게 하면 매번 headless browser를 이용하여 인증할때마다 아래와 같은 화면을 확인하거나, 새로운 기기에서 인증되었다는 메일이 날라올거다.&lt;/p&gt;
 &lt;h4 id=&quot;새로운-기기에서-로그인하였다는-화면&quot;&gt;&lt;a href=&quot;#%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EA%B8%B0%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%95%98%EC%98%80%EB%8B%A4%EB%8A%94-%ED%99%94%EB%A9%B4&quot; aria-label=&quot;새로운 기기에서 로그인하였다는 화면 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;새로운 기기에서 로그인하였다는 화면&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;/media/%EB%84%A4%EC%9D%B4%EB%B2%84_%EC%B9%B4%ED%8E%98_%ED%81%AC%EB%A1%A4%EB%A7%811/0314_01.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/005f0/0314_01.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 79.53296703296704%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsSAAALEgHS3X78AAACQUlEQVQ4y3VUzW7TQBjMmyBxoKU8BBdOSEiU3rhy4QmQeAIkuHABISpQkcqhiABpwgUVEAKpB5oIqihxcJzYcX6cAI7/dv2TpMPuGgfHNZYns9q1ZufbbzYFj1CkQai/5JMImIcQzLFgY8zYy9gjZPltGgU+mQafpDSA7Tk4kF/hUD0Q/FEp4VPnLSrSLqr6F4TBXIgmmycoZJ3xj7ig6ZjYqd3Fs9o9PKnewd7xA7xpPMX9w1tsgyKi4ATuX8Fch4moH4QCQRhhwcqLogWikCFYwKcRAn8mOHbnr5QtHKbFXI+g1++jp+tQNQ1dTWXQMDQMeJQJULoEoXE1buYsVwQ599QBum0dve4AHVmDqvTxe2LBsShs04M9JYItBt+LhPP0Oa46ZLu1JnXUjRoa429oTGLUR1V8H37F8fBoFaMjKL+kfIeUhjBdEzfeXcSV0lls7q8zrOHq/jlsVS7g5vtLuFY+j83yGsM6tsobuPz6DG5/vg7fj/JK5lFxUZGf40XzEYrSNl5KjwWKrW2U5B3Byzm2vtd8iA/dkkjFf7uc+7AgU4v9RDlrC+ScIU3lkHWT+KtwiQeHueecXRPdT5pKc7qcgEfoX3BTeRPNi9dPX4qMYHocBjNQEsCyHdiOi6nFosPYnE5B/UCEn6QE41xmzjBpjmXbUPQ2Wl0JTakFradDbivodFT0+yynqgadMd8oa+hUyfGN8SAbTfwYNTAcGTDGEyEyGI4wnvxcct5R5f7bxCXPBdJ3OxknyLrj+AOWE6V1a1xowgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+        &lt;source
+          srcset=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/01472/0314_01.webp 240w,
+/static/7377eaf7fd285f5c03c89da4c92d8bc3/222bd/0314_01.webp 480w,
+/static/7377eaf7fd285f5c03c89da4c92d8bc3/620b9/0314_01.webp 960w,
+/static/7377eaf7fd285f5c03c89da4c92d8bc3/28063/0314_01.webp 1440w,
+/static/7377eaf7fd285f5c03c89da4c92d8bc3/a7aba/0314_01.webp 1456w&quot;
+          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+          type=&quot;image/webp&quot;
+        /&gt;
+        &lt;source
+          srcset=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/0783d/0314_01.png 240w,
+/static/7377eaf7fd285f5c03c89da4c92d8bc3/782f4/0314_01.png 480w,
+/static/7377eaf7fd285f5c03c89da4c92d8bc3/f570d/0314_01.png 960w,
+/static/7377eaf7fd285f5c03c89da4c92d8bc3/8d0ff/0314_01.png 1440w,
+/static/7377eaf7fd285f5c03c89da4c92d8bc3/005f0/0314_01.png 1456w&quot;
+          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+          type=&quot;image/png&quot;
+        /&gt;
+        &lt;img
+          class=&quot;gatsby-resp-image-image&quot;
+          src=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/f570d/0314_01.png&quot;
+          alt=&quot;0314 01&quot;
+          title=&quot;0314 01&quot;
+          loading=&quot;lazy&quot;
+        /&gt;
+      &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;이 화면이 매번 나오는 것이 싫다면, 브라우저의 설정 정보를 추가해야 한다. 위에서 초반에 &lt;code class=&quot;language-text&quot;&gt;launch&lt;/code&gt; method를 수행한 것을 기억할거다. 해당 method에 userDataDir param을 선언하고 해당 OS에 적합한 chrome이 설치된 파일 경로를 설정해주면 된다. [&lt;a href=&quot;https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md#Introduction&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;관련문서&lt;/a&gt;]&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# before&lt;/span&gt;
 browser &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; launch&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;headless&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
