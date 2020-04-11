@@ -27,26 +27,29 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-6a1b811a87966ef11111.js"
+    "url": "webpack-runtime-1a0de073cbe4e2d0bf9e.js"
   },
   {
-    "url": "styles.17eb3ae2cf142f6ccf11.css"
+    "url": "styles.6f563b1c1551706d46c0.css"
   },
   {
-    "url": "styles-a12cf676ef431ea74490.js"
+    "url": "styles-0dd9b16d06f2e4f550cc.js"
   },
   {
-    "url": "commons-fea01b247ce4ee1c0b38.js"
+    "url": "framework-7656862d80676d58607a.js"
   },
   {
-    "url": "app-d61f5af0ec843e32af7c.js"
+    "url": "532a2f07-49bf2a4eaadb39c9996c.js"
   },
   {
-    "url": "component---node-modules-gatsby-plugin-offline-app-shell-js-29e327e8790fcc937b11.js"
+    "url": "app-5acea18f030568821841.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "edf82b9453294878e41fedad00ea14b8"
+    "revision": "2ca061f3d3ee62278e90d4006d269dc4"
+  },
+  {
+    "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-b3d32bc20641419cfed7.js"
   },
   {
     "url": "manifest.json",
@@ -54,13 +57,13 @@ self.__precacheManifest = [
   },
   {
     "url": "manifest.webmanifest",
-    "revision": "ed80dc282c0e1c393aa1020989dc9989"
+    "revision": "e26bd1f1c074e680966d618be9d2e38d"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerRoute(/(\.js$|\.css$|static\/)/, new workbox.strategies.CacheFirst(), 'GET');
-workbox.routing.registerRoute(/^https?:.*\page-data\/.*\/page-data\.json/, new workbox.strategies.NetworkFirst(), 'GET');
+workbox.routing.registerRoute(/^https?:.*\page-data\/.*\/page-data\.json/, new workbox.strategies.StaleWhileRevalidate(), 'GET');
 workbox.routing.registerRoute(/^https?:.*\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/, new workbox.strategies.StaleWhileRevalidate(), 'GET');
 workbox.routing.registerRoute(/^https?:\/\/fonts\.googleapis\.com\/css/, new workbox.strategies.StaleWhileRevalidate(), 'GET');
 
@@ -103,7 +106,7 @@ function handleAPIRequest({ event }) {
   const params = pathname.match(/:(.+)/)[1]
   const data = {}
 
-  if (params.indexOf(`=`) !== -1) {
+  if (params.includes(`=`)) {
     params.split(`&`).forEach(param => {
       const [key, val] = param.split(`=`)
       data[key] = val
@@ -147,7 +150,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/app-d61f5af0ec843e32af7c.js`))) {
+  if (!resources || !(await caches.match(`/app-5acea18f030568821841.js`))) {
     return await fetch(event.request)
   }
 
