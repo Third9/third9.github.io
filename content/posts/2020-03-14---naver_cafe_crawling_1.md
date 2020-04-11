@@ -1,10 +1,10 @@
 ---
-title: 네이버 카페 Crawling 하기:인증 수행
+title: 네이버 카페 Crawling 하기-1:인증
 date: "2020-03-14 14:51:13.943302"
 template: "post"
 draft: false
 slug: "/posts/네이버_카페_crawling1/"
-category: "etc"
+category: "develop"
 tags:
   - "python3"
   - "pyppeteer"
@@ -216,6 +216,6 @@ if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())
 ````
 
-여기까지로 naver에 접속해서 인증하는 부분까지는 pyppeteer 로 구현이 됬다. 이후의 naver cafe에 접근해서 글을 가져오고 저장하는 부분은 본인이 게을러서 다음글에서 다루도록 한다.
+여기까지로 naver에 접속해서 인증하는 부분까지는 pyppeteer 로 구현이 됬다. 이후의 naver cafe에 접근해서 글을 가져오고 저장하는 부분은 다음편에서 다루겠습니다.
 
 > 📌내용이 잘못됬거나 변경된 사항이 있다면 코멘트 바랍니다.
