@@ -1,5 +1,5 @@
 ---
-title: 네이버 카페 Crawling 하기-1:인증
+title: '네이버 카페 Crawling 1: cafe 인증'
 date: "2020-03-14 14:51:13.943302"
 template: "post"
 draft: false
@@ -12,11 +12,11 @@ tags:
   - "crawling"
   - "네이버 카페"
   - "크롤링"
-description: "개발자 아빠의 어린이집 사진 수집하는 법"
+description: "개발자 아빠의 어린이집 사진을 수집하는법. Crawling"
 ---
 
-
-## 네이버 카페 Crawling
+> 다음글 보기 [네이버 카페 Crawling 2: cafe글 가져오기](/posts/네이버_카페_crawling2)
+## Step 1: 네이버 카페 Crawling
 
 아이의 어린이집에서 운영하는 카페에 매일 올라오는 사진을 매번 내려받기가 귀찮아서 네이버 카페 crawler를 만들게 되었다. 일주일에 몇 번씩 불규칙하게 올라오는 자녀의 사진을 저장하는 건 생각보다 많은 시간과 에너지를 소모한다.
 
@@ -24,7 +24,7 @@ description: "개발자 아빠의 어린이집 사진 수집하는 법"
 
 selenium을 이용한 인증 방식은 모두 네이버 측에서 사람이 안한걸로 체크하고 걸러내더라, 사람이 하는 것처럼 키입력 방식과 딜레이를 두어도 다 걸러냈다. 그 와중에 알게 된 새로운 headless browser인 [`puppeteer`](https://github.com/puppeteer/puppeteer)를 사용해 봤는데 이건 잘되더라, node.js로 만들어져 있어서 언어를 js로 바꿔서 해야 하나 했는데... 이걸 python으로 포팅한 [`pyppeteer`](https://github.com/miyakogi/pyppeteer) 라는 비공식 프로젝트가 존재했다. 이제 python과 pyppeteer를 이용해서 crawler를 만들었던 내용을 정리한다.
 
-## 브라우저 열어보기
+## Step 2: 브라우저 열어보기
 
 >💡여기서 사용되는 html의 element의 위치를 특정하기 위한 값들은 언제든 네이버 측에서  변경하면 바뀔 수 있다. 여기 표기된 위치는 글 작성 시점에서의 path일 뿐 직접 코드를 수행할때는 달라질 수 있다. pyppeteer를 잘 사용하기 위해서는 browser 상에서 원하는 elem의 path를 잘 뽑아내는 것이 매우중요하다. 개인적으로는 크롬의 개발자 모드에서 elem path를 찾는 것을 추천한다.
 
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
 위의 `launch` 에 headless 옵션을 False로 주었기에 remote용 chrome 브라우저가 열리며 우리가 원하는 페이지로의 이동하는 작업을 화면으로 보여준다. 옵션을 True로 주었다면 동일한 기능을 하되 사용자는 UI 상으로 확인은 어렵다.
 
-## Naver 인증 하기
+## Step 3: Naver 인증 하기
 
 일단 오픈된 웹사이트라면 모를까 인증을 거쳐야만 정보를 확인 할 수 있는 사이트라면 인증기능을 구현하는 것이 가장 선행되어야 할 작업이다. 위의 코드에 이어서 인증 부분만을 추가 구현해본다.
 ```python
