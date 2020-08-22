@@ -3,14 +3,14 @@
 
 .post {
   &__footer {
-    max-width: $layout-post-width;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0 8% 0 23%;
     padding: 0 15px;
   }
 
   &__comments {
-    max-width: $layout-post-width;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0 8% 0 23%;
     padding: 0 15px;
   }
 
@@ -38,6 +38,8 @@
   }
   &__toc {
     position: fixed;
+    top: 6rem;
+    left: 2rem;
     @media (max-width: 1023px) {
       display: none;
     }
@@ -47,17 +49,17 @@
       padding: 30px 0px;
       margin: 0;
       position: absolute;
-      right: -20em;
+      // right: -20em;
       @media (max-width: 1599px) {
-        right: -74rem;
+        // right: -74rem;
         width: 15rem;
       }
       @media (max-width: 1399px) {
-        right: -72rem;
+        // right: -72rem;
         width: 15rem;
       }
       @media (max-width: 1025px) {
-        right: -14rem;
+        // right: -14rem; 
         width: 12rem;
       }
       &-item {

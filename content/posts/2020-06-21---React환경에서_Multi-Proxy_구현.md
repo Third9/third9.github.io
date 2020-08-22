@@ -33,7 +33,7 @@ reactjs를 셋팅하면 기본적으로 설정되는 `package.json` 파일에 �
 
 아래는 proxy test를 위해서 임의로 작성한 코드이며, http 통신은 axios를 이용하였다.
 
-```jsx
+```jsx {numberLines}
 // apiConnectTest.js
 import axios from 'axios';
 

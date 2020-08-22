@@ -2,13 +2,14 @@
 @import '../../../assets/scss/mixins';
 
 .content {
-  max-width: $layout-post-single-width;
+  // max-width: $layout-post-single-width;
+  
   padding: 0 15px;
-  margin: 0 auto;
+  margin: 0 8% 0 23%;
 
   &__title {
     font-size: $typographic-base-font-size * 2;
-    max-width: $layout-post-width;
+    max-width: $layout-post-width + 160;
     margin-left: auto;
     margin-right: auto;
     font-weight: 600;
@@ -45,9 +46,9 @@
     }
 
     & * {
-      max-width: $layout-post-width;
+      // max-width: $layout-post-width;
       margin-left: auto;
-      margin-right: auto
+      margin-right: auto;
     }
 
     & img {
@@ -62,7 +63,7 @@
   .content {
     padding: 0;
     @media (max-width: 1025px) {
-      margin-right: -1rem;
+      margin: 0 4% 0 25%
     }
 
     &__title {
