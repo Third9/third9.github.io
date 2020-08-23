@@ -23,7 +23,7 @@ Django에서 ORM을 사용하는데 있어서 보통의(가벼운) SQL 작업에
 ### > F() expressions
 `F()`의 기능은 모델의 Field와 관련한다.
 
-```python
+```python {numberLines}
 # F()를 사용하지 않은 일반 field 값의 증가
 model_obj = Model.objects.get(name='third9')
 model_obj.age_field += 1
@@ -46,7 +46,7 @@ F() 를 사용하는 방식이 python 친화적이면서 동시에 같은 Table�
 ### > Q() objects
  `Q()` 의 사용은 아래와 같이 한다.
 
-```python
+```python {numberLines}
 # Q() 사용의 예시
 from django.db.models import Q
 
@@ -69,7 +69,7 @@ SELECT * FROM model WHERE id='value1' OR name='value2'
 
 위의 방식처럼 조건식을 넣을 수가 있다. 위는 Q를 OR로만 표현한 경우이고 AND, NOT 등에 대한 표현도 손쉽게 가능하다.
 
-```python
+```python {numberLines}
 # 위의 코드에 이어서 
 
 # AND
@@ -80,7 +80,7 @@ Model.objects.filter(Q(id='value1') | ~Q(name='value2'))
 ```
 
  위에 나온 방식들을 모두 활용한다면 아래와 같이 사용가능 하다.
-```python
+```python {numberLines}
 """ 원하는 SQL 문
 SELECT * 
 FROM model 

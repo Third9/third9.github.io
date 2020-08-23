@@ -55,6 +55,26 @@
       max-width: 100%;
     }
 
+    & blockquote {
+      border-left: .25em solid #5d93ff;
+      background-color: #cacaca3b;
+    }
+
+    & p {
+      & code {
+        background: linear-gradient(to top,#445ce41f 30%, transparent 70%);
+        font-weight: bold;
+        padding: .3rem;
+        vertical-align: top;
+        color:#445ce4;
+      }
+    }
+
+    & pre {
+      & code {
+        display: grid;
+      }
+    }
   }
 
 }

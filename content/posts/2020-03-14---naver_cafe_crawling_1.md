@@ -31,7 +31,7 @@ selenium을 이용한 인증 방식은 모두 네이버 측에서 사람이 안�
 우선 알아둬야할 부분이 pyppetter는 python 3.6 이상부터만 지원을 하는데, 그 이유로는 asyncio의 사용이 필수이기 떄문이다. github과 문서상에서 이유에 대한 내용을 찾지는 못했지만, 개인적으로는 node.js용으로 만들어진 puppeteer도 async/await 등의 비동기 형식으로 동작을 하기에 puppeteer를 포팅하여 만들어졌기에 이러한 부분에 영향을 받은 것으로 생각된다.
 
 우선 python과 pyppeteer를 이용해서 기본적인 페이지를 열어보자.
-```python
+```python {numberLines}
 # main.py
 import asyncio
 from pyppeteer import launch
@@ -66,7 +66,7 @@ if __name__ == "__main__":
 ## Step 3: Naver 인증 하기
 
 일단 오픈된 웹사이트라면 모를까 인증을 거쳐야만 정보를 확인 할 수 있는 사이트라면 인증기능을 구현하는 것이 가장 선행되어야 할 작업이다. 위의 코드에 이어서 인증 부분만을 추가 구현해본다.
-```python
+```python {numberLines}
 # 여기서 page param은 위의 main method에서 전달받는다.
 async def naver_auth(page):
   # 인증을 위한 naver 페이지로 이동
@@ -87,7 +87,7 @@ async def naver_auth(page):
 여기까지만 하면 일단 인증은 된다. 다만 네이버 측에서는 새로운 기기로 인증이 되었다는 화면이 뜰거다.
 
 그 부분은 아래와 같이 추가한다. 위의 naver_auth method에 이어서
-```python
+```python {numberLines}
 # login 후 해당 장치 인증
 elems_login_and_device_add = await page.xpath('//*[@id="frmNIDLogin"]/fieldset/span[1]/a')
 if len(elems_login_and_device_add) > 0:
@@ -104,7 +104,7 @@ if len(elems_login_and_device_add) > 0:
 ```
 
 위의 코드를 추가하면 된다. 그렇게 되면 naver_auth의 전체코드는 아래와 같다.
-```python
+```python {numberLines}
 async def naver_auth(page):
   # 인증을 위한 naver 페이지로 이동
   await page.goto('https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com')
@@ -144,18 +144,18 @@ async def naver_auth(page):
 ![](/media/네이버_카페_크롤링1/0314_01.png)
 
 이 화면이 매번 나오는 것이 싫다면, 브라우저의 설정 정보를 추가해야 한다. 위에서 초반에 `launch` method를 수행한 것을 기억할거다. 해당 method에 userDataDir param을 선언하고 해당 OS에 적합한 chrome이 설치된 파일 경로를 설정해주면 된다. [[관련문서](https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md#Introduction)]
-```python
+```python {diff}
 # before
-browser = await launch(headless=False)
+- browser = await launch(headless=False)
 
 # after
-browser = await launch(headless=False, userDataDir={OS별 경로})
++ browser = await launch(headless=False, userDataDir={OS별 경로})
 ````
 
 위와 같이 변경해주면, 처음을 제외하고는 다시 headless 를 실행할떄 새로운 기기인증과 관련한 화면이나 메일 발송없이 인증이 진행된다.
 
 지금까지 진행된 내용의 전체 코드는 아래와 같다.
-```python
+```python {numberLines}
 # main.py
 import asyncio
 from pyppeteer import launch

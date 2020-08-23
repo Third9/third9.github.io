@@ -37,7 +37,7 @@ drf의 pagination 구현은 `django`의 `settings.py` 파일을 수정하는 방
 
 전체 API가 아닌 원하는 Class에만 pagination 기능을 구축하려 한다면 아래와 같이 한다.
 
-```python
+```python {numberLines}
 # ./api/v1/paginations.py
 '''
 별도의 모듈로 분리하지 않아도 된다.
@@ -62,7 +62,7 @@ class NotStandardResultsSetPagination(PageNumberPagination):
 
 - 특정 api class 에만 pagination 구현
 
-```python
+```python {numberLines}
 # ./api/v1/views.py
 ...
 from rest_framework import viewsets
@@ -98,7 +98,7 @@ REST_FRAMEWORK = {
 
 추가로 무한 스크롤과 같은 형태의 구현을 원한다면 `CursorPagination` 모듈을 이용하여 아래와 같은 구현이 가능하다. 방식은 앞서 나온 pagination 방식과 동일 하며  `PageNumberPagination`모듈을  `CursorPagination`모듈로 변경하면 된다. cursor는 page 방식처럼 어느 위치의 데이터인지 사용자 입장에서 알지 못하게 하거나 알 필요가 없을때 유용하다. cursor 방식과 page 방식의 차이는 데이터를 가져오는 기준의 값이 page가 아닌 cursor(id) 방식이라 것에 차이가 있다. 또한 cursor는 `page_size_query_param`가 아닌 `cursor_query_param`을 속성 값으로 가진다.
 
-```python
+```python {numberLines}
 # CursorPagenagtion
 
 from rest_framework.pagenation import CursorPagination

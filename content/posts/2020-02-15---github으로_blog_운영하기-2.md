@@ -39,7 +39,7 @@ DISQUS를 사용하기 위해서는 필수적으로 계정을 생성해야 합�
 위의 작업까지 완료하였다면, 그 다음 작업은 너무 간단합니다. 물론 이건 gatsby 환경에 `lumen Template`를 적용하였기에 가능한 일입니다. 직접 구현한다면 관련 모듈부터 그 외 디테일한 기능까지 모두 신경을 써야 했을 겁니다.
 
 gatsby에 DISQUS를 붙이는 방법은 [github와 gatsby로 블로그 운영하기](https://third9.github.io/posts/github와_gatsby로_블로그_운영하기/)에서 소개했던 `config.js` 파일에 DISQUS의 `Shortname`을 추가하면 됩니다.
-```js
+```js {numberLines}
 // config.js
 module.exports = {
   ...

@@ -26,7 +26,7 @@ description: "개발자 아빠가 아이의 사진을 관리하는 법"
 >💡해당 글에서 설명하는 코드에 있는 xpath의 위치 및 selector 경로는 모두 chrome의 개발자 도구를 통해서 확인 하고 찾은 값이다. 추후에 경로가 달라진다면 개발자 도구 등을 이용하여 위치를 찾으면 된다.
 
 전의 글에 이어서 인증을 하였다면, 이제 원하는 카페의 글들을 가져오기 위해서 해당 카페의 페이지로 이동을 하여야 한다.
-```python
+```python {numberLines}
 # 페이지 이동
 ## cafe_url에는 본인이 이동하고자 하는 url 주소를 입력하면 된다.
 await page.goto(cafe_url)
@@ -41,7 +41,7 @@ await page.waitFor(1000)
 `page` 객체에 현재 내가 접근한 page의 정보들이 모두 들어있기에 위에서 이동한 `page` 객체를 이용해야 한다.
 
 네이버 카페는 사이드의 목록정보와 본문글이 frame으로 각기 나뉘어 있기에 본문이 있는 frame에 접근한 후에글의 내용을 가져와야 한다.
-```python
+```python {numberLines}
 # 카페 메인 프레임 선택
 ## pyppeteet를 이용하여 elems을 가져올때는 return 되는 type은 기본적으로 list(array) 형태를 띈다.
 main_frame = [frame for frame in page.frames if frame.name == 'cafe_main'][0]
@@ -50,7 +50,7 @@ main_frame = [frame for frame in page.frames if frame.name == 'cafe_main'][0]
 위의 형태로 본문이 있는 main frame에 접근하여서 `main_frame` 객체에게서 글의 내용 제목등을 가져올 수 있다. 
 
 아래의 코드를 참조하자.
-```python
+```python {numberLines}
 ''' 
 main-frame에서 xpath 상으로 class명이 tit-box인 element 목록을 추출한다.
 해당 class elem에 글의 제목 및 title에 위치하는 관련정보들이 존재한다.'''
@@ -68,7 +68,7 @@ article_title = await title_box.Jeval('div.fl tbody span.b.m-tcol-c', 'node => n
 >alias to querySelectorAllEval()
 
 위의 코드에서 게시글의 제목을 가져오는건 필자가 목적했던 바의 부수적인 부분이다, 필자의 주 목적인 이미지들을 가져오는 기능이 필요하다.
-```python
+```python {numberLines}
 # main_frame 객체에서 게시글의 본문내용을 가지고 있는 tbody라는 id를 가진 elem을 가져옵니다.
 elem_body = await main_frame.xpath('//*[@id="tbody"]')
 
@@ -94,7 +94,7 @@ await page.waitFor(1000)
 ![](/media/네이버_카페_크롤링2/0419_1.png)
 
 네이버 카페의 게시판은 위의 이미지와 같이 카드, 영상, 앨범, 리스트 등의 형태로 볼 수 있게 되어있고 카페별로 기본 형태가 달라서 가져오기 편하고 한화면에 최대한 많은 글들이 보일 수 있도록 변경해줘야 다음작업을 수행하기에 편하다. 카페의 글을 가져오기 전에 선행작업을 통해서 카페글을 최대한 많이 가져올 수 있는 형태로 바꾸자, 먼저 목록 스타일부터 변경해준다.
-```python
+```python {numberLines}
 # 글 목록이 존재하는 cafe_main frame을 가져옵니다.
 main_frame = [frame for frame in page.frames if frame.name == 'cafe_main'][0]
 
@@ -109,7 +109,7 @@ await page.waitFor(1500)
 여기서 위의 코드를 보면 `J` method가 존재하는데, 이는 `document.querySelector` 와 같은 기능을 한다.
 
 목록 스타일을 List 형태로 바꾸었으면, 게시물이 가장 많이 나오는 갯수로 변경을 한다.
-```python
+```python {numberLines}
 # 목록의 출력 갯수를 표시하는 elem을 선택합니다.
 elem_page_size = await main_frame.xpath('//*[@id="listSizeSelectDiv"]/a')
 await elem_page_size[0].click();
@@ -122,7 +122,7 @@ await elem_50_page[0].click();
 위의 작업까지 했다면 이제 게시물 출력 스타일이 리스트 형태에 게시글을 50개씩 보인다.
 
 이제 여기서 게시글의 목록을 가져와서 해당 게시글들의 URL 주소를 가져온다.
-```python
+```python {numberLines}
 # 페이지의 목록들 가져오기
 elem_trs = await main_frame.xpath('//*[@id="main-area"]/div[@class="article-board m-tcol-c"]/table/tbody/tr')
 await page.waitFor(1000)

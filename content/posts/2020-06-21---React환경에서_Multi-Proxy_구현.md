@@ -60,7 +60,7 @@ const async postReq = () => {
 
 위와 같은 코드를 선언하고, `getReq` , `postReq` function을 호출하게 된다면 두 요청 모두 우리가 위에서 설정한 proxy 경로를 타고 호출된다. 
 
-```
+```ps
 getReq ⇒ http://local.test.com/local/req
 postReq ⇒ http://local.test.com/remote/req
 ```
@@ -72,13 +72,13 @@ postReq ⇒ http://local.test.com/remote/req
 
 multiproxy 기능을 사용하기 위해서는 우선 `http-proxy-middleware`를 설치하여야 한다.
 
-```bash
+```ps
 $ yarn add http-proxy-middleware
 ```
 
 기본 src 폴더 하위에 `setupProxy.js` 파일을 아래와 같은 형태로 작성한다. 맨 위에서도 설명하였지만, setupProxy를 통한 proxy customize는 해당 프로젝트를 CRA(v2)를 이용하여 생성하였어야 한다.
 
-```jsx
+```jsx {numberLines}
 // setupProxy.js
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
@@ -102,7 +102,7 @@ module.exports = (app) => {
 
 위와 같이 작성한 경우 route 설정에 따라서 동작하며, 위에서 사용했던 `apiConnectTest.js` 코드를 예로 든다면 아래와 같이 동작한다.
 
-```
+```ps
 getReq ⇒ http://local.test.com/local/req
 postReq ⇒ http://remote.test.com/remote/req
 ```

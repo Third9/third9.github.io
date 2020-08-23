@@ -26,26 +26,25 @@ Error tracking과 Log 관리등을 원격으로 관리할 수 있게 해주는 �
 
 1. sentry 의 원할한 설치 및 구동을 위해서 sentry라는 명칭의 계정을 생성한다
 
-```shell
+```ps
 # 해당 명령어 실행 후 나오는 입력 내용을 순차적으로 입력한다.(Id, password, name 등등)
 $ adduser sentry
 ```
 
 2. sentry 설치를 위한 모듈들 설치
 
-```shell
-$ sudo apt-get install -y python-pip\
-	python-setuptools\
-	python-dev\
-    libxslt1-dev\
-    gcc\
-    libffi-dev\
-	libjpeg-dev\
-	libxml2-dev\
-	libxslt-dev\
-	libyaml-dev\
-	libpq-dev
-	
+```ps
+$ sudo apt-get install -y python-pip \
+python-setuptools \
+python-dev \
+libxslt1-dev \
+gcc \
+libffi-dev \
+libjpeg-dev \
+libxml2-dev \
+libxslt-dev \
+libyaml-dev \
+libpq-dev	
 ```
 
 3. 위의 작업까지 마무리 하였다면 다음으로 worker의 역할과 issue 보관을 위한 redis와 postgresql을 설치해야 한다. worker의 역할은 rabbitMQ도 사용 가능하지만 여기서는 redis를 사용한다.
@@ -60,7 +59,7 @@ $ sudo apt-get install -y python-pip\
 
 * PostgreSQL 설치
 
-  ```shell
+  ```ps
   # 우선 pgdg list를 만든다. (이미 존재하는 경우 파일 생성없이 내용만 추가)
   $ cd /etc/apt/sources.list.d/
   $ touch pgdg.list
@@ -79,7 +78,7 @@ $ sudo apt-get install -y python-pip\
 
 * PostgreSQL 셋팅 ( PostgreSQL 명령어 [링크](https://www.postgresql.org/docs/current/static/sql-commands.html))
 
-  ```shell
+  ```ps
   # postgresql 관리자 계정이 정상적으로 생성되어 있는지를 확인한다.
   $ cat /etc/password | grep 'postgres' 
 
@@ -117,12 +116,11 @@ $ sudo apt-get install -y python-pip\
 > Redis의 설치 및 셋팅은 다른 문서(링크)로 대체한다.
 
 
-
 ### - Sentry 서버 설치 및 셋팅 (Sentry:8.18.0)
 
 1. sentry는 python기반의 서버이므로 virtualenv를 먼저 설치 한 뒤 가상환경을 셋팅한다.
 
-```shell
+```ps
 # virtualenv install 
 $ pip install -U virtualenv
 
@@ -150,7 +148,7 @@ $ pip install -U sentry
 
 2. sentry설치를 마쳤다면, sentry 설정을 진행한다.
 
-```shell
+```ps
 # init 파일 생성(기본 생성 위치는 '~/.sentry' 이다)
 $ sentry init {경로 위치}
 ex) sentry init or sentry init /etc/sentry
@@ -181,7 +179,7 @@ DATABASES = {
 
 3. 모든 설정을 마무리 하였으면 순차적으로 명령어를 실행하여 migration 작업을 수행한다.
 
-```shell
+```ps
 # sentry migration
 # DB 생성에 있어서 여기서는 sentry 라는 명칭을 사용한다.
 $ createdb -E utf-8 sentry
@@ -196,7 +194,7 @@ $ sentry createuser
 
 4. migration 까지 마무리 하였다면, 서버를 실행한다. 
 
-```shell
+```ps
 # sentry의 web 서버
 $ sentry run web
 
@@ -228,7 +226,7 @@ $ sentry run cron
 
 upstart를 이용하여 daemon을 구동할 경우, 시스템 부팅시의 자동 실행 및 서비스 종료시 자동 재시작 로그파일 기록 등등의 장점이 있다. 우선은 아래의 script를 작성하여야 한다. (예시에서는 web만을 작성하였지만 실제로는 worker, cron 등에 대한 script도 만들어야 한다.)
 
-```shell
+```ps
 # upstart에서 수행되는 서비스들의 script는 /etc/init/ 경로에 ***.conf 파일의 형태로 작성해줘야 한다.
 $ cd /etc/init/
 $ touch sentry-web.conf
@@ -239,7 +237,7 @@ $ vim sentry-web.conf
 
 위의 작업까지 수행하였다면 아래의 코드를 위에서 만들어둔 `sentry-web.conf` 파일에 작성한다.
 
-```shell
+```conf
 # /etc/init/sentry-web.conf
 start on runlevel [2346]
 stop on runlevel [016]
@@ -285,7 +283,7 @@ end script
 
 > 나머지 worker, cron에 관련한 script
 
-```bash
+```conf
 # /etc/init/sentry-worker.conf
 start on runlevel [2345]
 stop on runlevel [016]
@@ -323,7 +321,7 @@ end script
 
 
 
-```shell
+```conf
 # /etc/init/sentry-cron.conf
 start on runlevel [2345]
 stop on runlevel [016]
@@ -377,7 +375,7 @@ end script
 
 3. sentry upgrade 
 
-   ```shell
+   ```ps
    pip install -U sentry
    ```
 
@@ -385,7 +383,7 @@ end script
 
 5. sentry 업그레이드를 진행함
 
-   ```shell
+   ```ps
    sentry upgrade
    ```
 
@@ -416,7 +414,7 @@ https://github.com/getsentry/sentry/issues/6098#issuecomment-329824716
 
 > config.yaml
 >
-> ```
+> ```yaml
 > ###############
 > # Mail Server #
 > ###############
@@ -436,7 +434,7 @@ https://github.com/getsentry/sentry/issues/6098#issuecomment-329824716
 
 > sentry.conf.py
 >
-> ```
+> ```py
 > ENV_CONFIG_MAPPING = {
 >     'SENTRY_EMAIL_PASSWORD': 'mail.password',
 >     'SENTRY_EMAIL_USER': 'mail.username',
@@ -467,7 +465,7 @@ https://github.com/getsentry/sentry/issues/6098#issuecomment-329824716
 
 > sentry/utils/email.py
 >
-> ```
+> ```py
 > # 설치된 sentry 모듈에서 위의 파일경로를 찾아가서 직접 수정
 > ...
 > def get_connection(fail_silently=False):

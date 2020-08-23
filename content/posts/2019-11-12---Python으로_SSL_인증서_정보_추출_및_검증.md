@@ -19,7 +19,7 @@ description: "Python의 cryptography와 OpenSSL 모듈을 이용하여 SSL 인�
 
 Cryptography 모듈을 호출하여 인증서 내용을 불러오는 것으로 시작한다.
 - 아래의 load_pem_x509_certificate()를 통해서 인증서의 정보를 가져올 수 있다.
-```python
+```python {numberLines}
     from cryptography import x509
     from cryptography.hazmat.backends import default_backend
     
@@ -34,7 +34,7 @@ Cryptography 모듈을 호출하여 인증서 내용을 불러오는 것으로 �
 ```
 
 - 인증서 Fingerprint
-```python
+```python {numberLines}
     from cryptography.hazmat.primitives import hashes
     
     # 암호화 타입에 따라서 fingerprint의 정보는 달라짐., 
@@ -44,7 +44,7 @@ Cryptography 모듈을 호출하여 인증서 내용을 불러오는 것으로 �
 ```
 
 - serial_number
-```python
+```python {numberLines}
     # 인증서의 serial number 를 가져온다
     cert.serial_number
     
@@ -55,32 +55,31 @@ Cryptography 모듈을 호출하여 인증서 내용을 불러오는 것으로 �
     serial_list = [serial[s:s+2] for s in range(0, len(serial), 2)]
 ```
 - 인증서 등록일자
-```python
+```python 
     cert.not_valid_before
 ```
 
 - 인증서 만료일자
-```python
+```python 
     cert.not_valid_after
 ```
 
 - 인증서의 도메인 추출
-```python
+```python {numberLines}
     from cryptography.x509.oid import NameOID
     
     cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[0].value
 ```
 
 - 인증서 발급기관 추출
-```python
+```python {numberLines}
     from cryptography.x509.oid import NameOID
     
-
     cert.issuer.get_attributes_for_oid(NameOID.COMMON_NAME)[0].value
 ```
 
 - public key 추출
-```python
+```python {numberLines}
     from cryptography.hazmat.primitives import serialization
     
     # 인증키를 통해서 public-key를 추출한다.
@@ -92,7 +91,7 @@ Cryptography 모듈을 호출하여 인증서 내용을 불러오는 것으로 �
 ```
 
 - Private key 인증서를 가져오는 방법
-```python
+```python {numberLines}
     from cryptography.hazmat.backends import default_backend
     from cryptography.hazmat.primitives import serialization
     
@@ -112,7 +111,7 @@ Cryptography 모듈을 호출하여 인증서 내용을 불러오는 것으로 �
 OpenSSL 모듈을 이용하여 인증서와 개인키의 유효성 검증 및 체인 키와 인증서의 유효성 검증을 진행한다.
 
 - 기본적인 모듈 호춢 및 인증서들에 대한 변수선언을 아래와 같이 해준다.
-```python
+```python {numberLines}
     import OpenSSL
     
     certificate = "인증서 내용"
@@ -121,7 +120,7 @@ OpenSSL 모듈을 이용하여 인증서와 개인키의 유효성 검증 및 �
 ```
 
 - 인증서와 개인 키간의 검증 과정
-```python
+```python {numberLines}
     # 개인키와 인증서를 OpenSSL의 객체로 생성
     pk_obj = OpenSSL.crypto.load_privatekey(crypto.FILETYPE_PEM, private_key)
     cert_obj = OpenSSL.crypto.load_certificate(crypto.FILETYPE_PEM, certificate)
@@ -143,7 +142,7 @@ OpenSSL 모듈을 이용하여 인증서와 개인키의 유효성 검증 및 �
 해당 내용은 해당 [링크](https://stackoverflow.com/a/46554359/4443380)를 참조하였다.
 
 - 인증서와 Chain Key간의 검증
-```python
+```python {numberLines}
     import re
     
     # Chain Key의 경우 여러개의 인증서 내용이 연달아 있으므로 인증서들의 유효성 및 List 형태로 분리을 위한 

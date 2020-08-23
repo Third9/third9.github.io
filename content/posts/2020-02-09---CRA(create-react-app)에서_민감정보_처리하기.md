@@ -22,7 +22,7 @@ description: "create-react-app을 이용하여 프로젝트를 진행하는 경�
 보통은 환경 변수에 등록하여 사용하거나 INI와 같은 설정 파일로 관리를 하는데 여기서는 별도의 .env 파일로 분리하여 관리하는 방법만 다룬다. 일반 환경파일로 설정하고 싶은 경우는 위의 링크를 참조하면 된다.
 
 프로젝트의 root 경로에 `.env` 파일을 생성 한뒤 아래와 유사하게 코드를 작성한다.
-```
+```zshenv
 REACT_APP_USERNAME=user_id
 REACT_APP_PASSWORD=password
 ```
@@ -30,7 +30,7 @@ REACT_APP_PASSWORD=password
 위의 코드가 끝이다. 사용하고 싶은 설정 값의 명칭을 위와 같이 추가하여 작성하면 된다. 여기서 주의할 점은 앞에는 항상 `REACT_APP_` 이 붙어야 한다는 것이다. 그래야 CRA에서 정상적인 환경설정 값으로 인지하여 사용이 가능하다.
 
 해당 값을 가져오는 방법은 별도의 모듈 호출 없이 CRA로 생성된 프로젝트 파일 내에서 공통으로 아래와 같이 작성하면 된다.
-```javascript
+```zshenv
 // .env
 let username = process.env.REACT_APP_USERNAME;
 let password = process.env.REACT_APP_PASSWORD;

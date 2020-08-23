@@ -21,7 +21,7 @@ Django를 이용한 프로젝트에서 API 서비스에 대하여 Test를 진행
 ## 인증방법
 일반적으로 Django의 User Class를 상속받아서 진행을 하였다면 인증에 큰 문제는 없습니다. DRF(Django-Rest-framework)를 이용하여 개발한 경우 `APIClient` 를 이용하면 되죠. 
 아래와 같은 방식으로 인증절차를 통과할 수 있습니다.
-```python
+```python {numberLines}
 # 일반적인 User class를 상속한 경우
 from rest_framework.test import APIClient
 
@@ -31,7 +31,7 @@ client.login(username='user, password='pass')
 
 다만, Django의 User class를 상속 받지 않은 경우는 `force_authenticate` method를 이용하여 처리 할 수 있습니다.
 
-```python
+```python {numberLines}
 # 강제로 인증을 위한 
 client.force_authenticate(user='user')
 ```

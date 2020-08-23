@@ -31,7 +31,7 @@ description: "정적 사이트 생성기인 gatsby를 이용하여 github에 블
 
 > gatsby-cli 설치
 
-```shell
+```ps
 $ npm install -g gatsby-cli # -g 옵션을 주어야 전역으로 설치되어 사용에 불편함이 없습니다.
 ```
 
@@ -43,7 +43,7 @@ gatsby의 설치가 완료되었다면 이제 gatsby-cli를 이용해서 블로�
 
 gatsby `new`명령어를 통해서 새로운 블로그의 생성이 가능합니다. 여기서는 위에 말한 `lumen template`을 이용해서 진행하겠습니다.
 
-```shell
+```ps
 # gatsby new [blog-title] [gatsby template url]
 $ gatsby new my-blog https://github.com/alxshelepenok/gatsby-starter-lumen
 ```
@@ -52,7 +52,7 @@ $ gatsby new my-blog https://github.com/alxshelepenok/gatsby-starter-lumen
 
 설치가 정상적으로 되었다면 설치 완료이후에 아래와 같은 내용이 나옵니다.
 
-```shell
+```ps
 Your new Gatsby site has been successfully bootstrapped. Start developing it by
 running:
   $ cd my-blog
@@ -189,7 +189,7 @@ description: "목록에서 보일 내용" // 글의 내용이 아닌 home의 목
 
 github에 올리려면, 우선 해당 git repo가 만들어져 있어야합니다. github 사이트에 들어가서 새로운 repository를 만들때 명칭을 `[blog-title].github.io`형태로 만들고 아래의 내용을 진행합니다. 다만 github.io 도메인을 사용하여 blog를 사용하려면 해당 파일들이 master 브랜치에 등록되어 있어야 하는 걸로 알고 있습니다. 그래서 블로그 코드 원본을 유지하기 위해서 별도의 branch를 생성했습니다. 명칭은 자유롭게 해도 되는데 여기선 `blog-source`로 했습니다
 
-```shell
+```ps
 $ git init // git 환경을 만듭니다.
 $ git checkout -b blog-source // blog-source 브랜치 생성
 $ git add . // blog 파일들 추가
@@ -229,14 +229,14 @@ $ git push -u origin blog-source // blog-source 브랜치를 원격에도 동일
 
 그럼 이제 deploy 명령을 수행하면 master 브랜치에 글이 등록됩니다. 글을 등록하기전에 먼저 블로그가 정상적으로 보이는지 확인을 합니다.
 
-```shell
+```ps
 $ yarn run build # 정적 사이트로 보일 수 있도록 build 하는 과정
 $ gatsby serve # local 서버 실행
 ```
 
 를 통해서 [localhost:9000](localhost:9000) 로 접근하면 확인이 가능합니다. local에서 확인했을때도 아무런 문제가 없다면 이제 실제 사이트에 배포합니다.
 
-```shell
+```ps
 $ npm run deploy
 or
 $ yarn run deploy
