@@ -44,10 +44,13 @@
       display: none;
     }
     &-list {
-      text-decoration: non;
+      list-style: none;
+      text-decoration: none;
       width: 320px;
       padding: 30px 0px;
       margin: 0;
+      border-radius: 5px;
+      border-right-style: groove;
       position: absolute;
       // right: -20em;
       @media (max-width: 1599px) {

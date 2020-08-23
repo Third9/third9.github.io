@@ -1,0 +1,57 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins';
+
+.tag {
+  @include margin-bottom(1);
+
+  &__button {
+    display: inline-flex;
+    padding: 3px 10px;
+    text-align: center;
+    color: $color-base;
+    border: 1px solid $color-gray-border;
+    border-radius: $button-border-radius;
+    font-size: small;
+    font-weight: normal;
+    margin: 2px 3px;
+
+    &:hover,
+    &:focus {
+      color: $color-primary;
+    }
+
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &-item {
+      padding: 0;
+      margin: 10px 0;
+
+      &-link {
+        font-size: $typographic-base-font-size;
+        color: $typographic-base-font-color;
+        font-weight: normal;
+        border: 0;
+
+        &:hover,
+        &:focus {
+          color: $color-primary;
+          border-bottom: 1px solid $color-primary;
+        }
+
+        &--active {
+          color: $color-base;
+          border-bottom: 1px solid $color-base;
+        }
+
+      }
+
+    }
+
+  }
+
+}
