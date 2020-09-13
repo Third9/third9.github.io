@@ -1,9 +1,9 @@
-@import '../../../assets/scss/variables';
-@import '../../../assets/scss/mixins';
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
 
 .content {
   // max-width: $layout-post-single-width;
-  
+
   padding: 0 15px;
   margin: 0 8% 0 23%;
 
@@ -16,7 +16,7 @@
     text-align: center;
     @include line-height(1.65);
     @include margin-top(1);
-    @include margin-bottom(0)
+    @include margin-bottom(0);
   }
 
   &__body {
@@ -34,15 +34,13 @@
           font-size: $typographic-base-font-size * 1.6817;
           margin-top: 0;
           @include margin-bottom(1);
-          @include line-height(1.5)
+          @include line-height(1.5);
         }
-
       }
-
     }
 
     & a {
-      text-decoration: underline
+      text-decoration: underline;
     }
 
     & * {
@@ -56,41 +54,41 @@
     }
 
     & blockquote {
-      border-left: .25em solid #5d93ff;
+      border-left: 0.25em solid #5d93ff;
       background-color: #cacaca3b;
     }
 
     & p {
       & code {
-        background: linear-gradient(to top,#445ce41f 30%, transparent 70%);
+        background: linear-gradient(to top, #445ce41f 30%, transparent 70%);
         font-weight: bold;
-        padding: .3rem;
+        padding: 0.3rem;
         vertical-align: top;
-        color:#445ce4;
+        color: #445ce4;
       }
     }
 
     & pre {
       & code {
-        display: grid;
+        display: block;
+        line-height: 0.8rem;
       }
     }
   }
-
 }
 
 @include breakpoint-md {
   .content {
     padding: 0;
     @media (max-width: 1025px) {
-      margin: 0 4% 0 25%
+      margin: 0 4% 0 25%;
     }
 
     &__title {
       font-size: $typographic-base-font-size * 3;
       @include line-height(2.25);
       @include margin-top(2.25);
-      @include margin-bottom(1.5)
+      @include margin-bottom(1.5);
     }
 
     &__body {
@@ -101,11 +99,8 @@
       & p {
         font-size: $typographic-base-font-size * 1.125;
         @include line-height(1.125);
-        @include margin-bottom(1.125)
+        @include margin-bottom(1.125);
       }
-
     }
-
   }
-
 }

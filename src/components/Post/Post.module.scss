@@ -1,5 +1,5 @@
-@import '../../assets/scss/variables';
-@import '../../assets/scss/mixins';
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
 
 .post {
   &__footer {
@@ -34,7 +34,6 @@
     &:focus {
       color: $color-primary;
     }
-
   }
   &__toc {
     position: fixed;
@@ -62,7 +61,7 @@
         width: 15rem;
       }
       @media (max-width: 1025px) {
-        // right: -14rem; 
+        // right: -14rem;
         width: 12rem;
       }
       &-item {
@@ -70,6 +69,9 @@
         margin: 0px;
         padding: 0.15em 0.75rem;
         color: #adb5bd;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
 
         &.active {
           color: black;
@@ -84,8 +86,8 @@
         &-link {
           color: inherit;
           &:hover {
-            color: inherit;
-            font-weight: 0;
+            color: #206db9;
+            font-weight: bolder;
           }
           &:focus,
           &:active {
@@ -112,9 +114,8 @@
       max-width: auto;
       margin: 0;
       top: 30px;
-      left: 30px
+      left: 30px;
     }
-
   }
   &__toc {
     position: fixed;
