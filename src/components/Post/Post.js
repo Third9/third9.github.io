@@ -18,7 +18,6 @@ const Post = ({ post }: Props) => {
   const { html } = post;
   const { tagSlugs, slug } = post.fields;
   const { tags, title, date } = post.frontmatter;
-  console.log("post >>> ", post);
   const tableOfContents = (
     <ul className={styles["post__toc-list"]}>
       <li>
