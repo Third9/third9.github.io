@@ -1,5 +1,5 @@
 ---
-title: Sentry server 설치
+title: Sentry server 설치(20.09.13 수정)
 date: "2019-11-11 19:27:46.081432"
 template: "post"
 draft: false
@@ -11,117 +11,115 @@ tags:
 description: "Error tracking과 Log 관리등을 원격으로 관리할 수 있게 해주는 모니터링 서비스 Sentry를 직접 설치 및 운영한다."
 ---
 
-## Sentry
+# Sentry 서버 설치
 
-Error tracking과 Log 관리등을 원격으로 관리할 수 있게 해주는 모니터링 Server
+> Sentry는 error-tracking과 log관리등의 이슈관리를 위한 모니터링 서비스다.
 
+- Ubuntu:14.04
+- python:2.7
+- Sentry: 8.18.0
+- postgreSQL: 9.4
+- Redis: 3.2.9
 
-
-## Sentry 서버 설치
-
-* Ubuntu:14.04
-* python:2.7
+## 설치 전 모듈 및 서버 설정
 
 설치를 위한 기본 환경은 위와 같으며 sentry 설치 전 몇가지 setting을 해주어야 한다.
 
 1. sentry 의 원할한 설치 및 구동을 위해서 sentry라는 명칭의 계정을 생성한다
 
-```ps
-# 해당 명령어 실행 후 나오는 입력 내용을 순차적으로 입력한다.(Id, password, name 등등)
-$ adduser sentry
-```
+   ```ps
+   # 해당 명령어 실행 후 나오는 입력 내용을 순차적으로 입력한다.(Id, password, name 등등)
+   $ adduser sentry
+   ```
 
 2. sentry 설치를 위한 모듈들 설치
 
-```ps
-$ sudo apt-get install -y python-pip \
-python-setuptools \
-python-dev \
-libxslt1-dev \
-gcc \
-libffi-dev \
-libjpeg-dev \
-libxml2-dev \
-libxslt-dev \
-libyaml-dev \
-libpq-dev	
-```
+   ```ps
+   $ sudo apt-get install -y python-pip \
+   python-setuptools \
+   python-dev \
+   libxslt1-dev \
+   gcc \
+   libffi-dev \
+   libjpeg-dev \
+   libxml2-dev \
+   libxslt-dev \
+   libyaml-dev \
+   libpq-dev
+   ```
 
 3. 위의 작업까지 마무리 하였다면 다음으로 worker의 역할과 issue 보관을 위한 redis와 postgresql을 설치해야 한다. worker의 역할은 rabbitMQ도 사용 가능하지만 여기서는 redis를 사용한다.
 
-   
+## Sentry 연동을 위한 Postgre-SQL 설치 및 셋팅
 
-### - Sentry 연동을 위한 PostgreSQL 설치 및 셋팅 (PostgreSQL:9.4)
-
-> PostgreSQL은 12.04, 14.04, 16.04 버전의 경우는 ubuntu의 apt repo를 통한 설치를 정상적으로 지원한다.
+> PostgreSQL은 12.04, 14.04, 16.04 버전의 경우는 ubuntu의 apt repo를 통한 설치를 정상적으로 지원한다. 여기서는 `9.4` 버전의 설치를 다룬다.
 >
 > 또한, 버전에 따라서 설치에 조금씩의 차이가 있는데 해당 방법은 [링크](https://www.postgresql.org/download/linux/ubuntu/)를 통해서 안내한다. 여기서는 14.04 버전을 기준으로 안내한다.
+>
+> Redis의 설치 방법은 여기선 다루지 않는다.
 
-* PostgreSQL 설치
-
-  ```ps
-  # 우선 pgdg list를 만든다. (이미 존재하는 경우 파일 생성없이 내용만 추가)
-  $ cd /etc/apt/sources.list.d/
-  $ touch pgdg.list
-
-  # pgdg.list 파일 생성 후 해당 파일내에 아래의 내용을 추가 후 저장한다.
-  deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
-
-  # 이후에 아래의 명령어를 수행한다.
-  $ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-  	sudo apt-key add -
-  $ sudo apt-get update
-
-  # 위의 작업까지 완료하였다면 아래의 명령어로 postgresql을 설치한다.
-  $ apt-get install postgresql-9.4
-  ```
-
-* PostgreSQL 셋팅 ( PostgreSQL 명령어 [링크](https://www.postgresql.org/docs/current/static/sql-commands.html))
-
-  ```ps
-  # postgresql 관리자 계정이 정상적으로 생성되어 있는지를 확인한다.
-  $ cat /etc/password | grep 'postgres' 
-
-  # PostgreSQL 작동여부 체크
-  $ /etc/init.d/postgresql status
-
-  # 작동중이지 않다면 start 명령을 이용하여 작동시켜준다.(이미 동작중이면 실행하지 않아도 된다.)
-  $ /etc/init.d/postgresql start
-
-  ## 관리자 계정의 password 변경 및 sentry 계정 생성을 위해서 psql에 접근
-  # 관리자 계정 postgres로 접근
-  $ sudo -u postgres psql template1
-
-  # password 변경
-  template1=# ALTER USER postgres with encrypted password '패스워드';
-
-  # sentry 계정 추가 및 LOGIN 권한 부여 (Password는 위에서 postgres 계정에 부여 하듯이 하면 된다.)
-  template1=# CREATE ROLE sentry WITH LOGIN;
-
-  # 계정 추가 후 해당 계정에 권한을 추가한다. (sentry 실행시 관련 db등을 생성하기에 sentry 계정 사용시 권한이 있어야 한다.)
-  template1=# ALTER ROLE sentry WITH CREATEDB CREATEROLE;
-
-  # 데이터 베이스 권한 부여
-  template1=# GRANT ALL ON DATABASE databasename TO username;
-
-  # 작업을 모두 마치면 정상적으로 접근 가능한지 Test., 두개의 계정모두 접속 가능한지 test 한다.
-  $ psql -h 127.0.0.1 -U postgres template1 
-  $ psql -h 127.0.0.1 -U sentry template1 
-  ```
-
-  
-
-### - Redis 설치 및 셋팅 (Redis:3.2.9)
-
-> Redis의 설치 및 셋팅은 다른 문서(링크)로 대체한다.
-
-
-### - Sentry 서버 설치 및 셋팅 (Sentry:8.18.0)
-
-1. sentry는 python기반의 서버이므로 virtualenv를 먼저 설치 한 뒤 가상환경을 셋팅한다.
+### #Postgre-SQL 설치
 
 ```ps
-# virtualenv install 
+# 우선 pgdg list를 만든다. (이미 존재하는 경우 파일 생성없이 내용만 추가)
+$ cd /etc/apt/sources.list.d/
+$ touch pgdg.list
+
+# pgdg.list 파일 생성 후 해당 파일내에 아래의 내용을 추가 후 저장한다.
+deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
+
+# 이후에 아래의 명령어를 수행한다.
+$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+	sudo apt-key add -
+$ sudo apt-get update
+
+# 위의 작업까지 완료하였다면 아래의 명령어로 postgresql을 설치한다.
+$ apt-get install postgresql-9.4
+```
+
+### #Postgre-SQL 셋팅
+
+> PostgreSQL 명령어 [링크](https://www.postgresql.org/docs/current/static/sql-commands.html)
+
+```ps
+# postgresql 관리자 계정이 정상적으로 생성되어 있는지를 확인한다.
+$ cat /etc/password | grep 'postgres'
+
+# PostgreSQL 작동여부 체크
+$ /etc/init.d/postgresql status
+
+# 작동중이지 않다면 start 명령을 이용하여 작동시켜준다.(이미 동작중이면 실행하지 않아도 된다.)
+$ /etc/init.d/postgresql start
+
+## 관리자 계정의 password 변경 및 sentry 계정 생성을 위해서 psql에 접근
+# 관리자 계정 postgres로 접근
+$ sudo -u postgres psql template1
+
+# password 변경
+template1=# ALTER USER postgres with encrypted password '패스워드';
+
+# sentry 계정 추가 및 LOGIN 권한 부여 (Password는 위에서 postgres 계정에 부여 하듯이 하면 된다.)
+template1=# CREATE ROLE sentry WITH LOGIN;
+
+# 계정 추가 후 해당 계정에 권한을 추가한다. (sentry 실행시 관련 db등을 생성하기에 sentry 계정 사용시 권한이 있어야 한다.)
+template1=# ALTER ROLE sentry WITH CREATEDB CREATEROLE;
+
+# 데이터 베이스 권한 부여
+template1=# GRANT ALL ON DATABASE databasename TO username;
+
+# 작업을 모두 마치면 정상적으로 접근 가능한지 Test., 두개의 계정모두 접속 가능한지 test 한다.
+$ psql -h 127.0.0.1 -U postgres template1
+$ psql -h 127.0.0.1 -U sentry template1
+```
+
+### #Sentry 설치
+
+#### 1. python 환경설정 및 sentry 설치
+
+sentry는 Django기반의 서비스이므로 virtualenv를 이용해서 환경 설정을 한 뒤 진행하는 것을 추천한다.
+
+```ps
+# virtualenv install
 $ pip install -U virtualenv
 
 # virtualenv setting
@@ -131,22 +129,28 @@ $ virtualenv ~/.venv/sentry
 $ . ~/.venv/sentry/bin/activate
 
 # sentry 설치
-$ pip install -U sentry
+$ pip install -U sentry==8.18.0
 ```
 
- 위의 작업까지 성공적으로 이어졌다면 sentry 서버 구동을 위한 설정 및 실행을 하면 된다. 하지만 정상적으로 구동하지 않고 에러가 출력되면 그에 대응하는 작업을 수행해야 한다.  에러 메시지는 사용자의 상황마다 다르므로 여기서는 2개 정도의 에러에 대해서만 간략히 설명한다.
+위의 작업까지 성공적으로 이어졌다면 sentry 서버 구동을 위한 설정 및 실행을 하면 된다. 하지만 정상적으로 구동하지 않고 에러가 출력되면 그에 대응하는 작업을 수행해야 한다. 에러 메시지는 사용자의 상황마다 다르므로 여기서는 2개 정도의 에러에 대해서만 간략히 설명한다.
 
 > E1: ValueError: jpeg is required unless explicitly disabled using --disable-jpeg, aborting
 >
-> > `sudo apt-get install libjpeg-dev zlib1g-dev` 수행., 관련 모듈 설치
->
+> ```ps
+> # 아래의 모듈 설치
+> $ sudo apt-get install libjpeg-dev zlib1g-dev
+> ```
+
 > E2: error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
 >
-> > `sudo apt-get install libssl-dev libffi-dev` 수행., 관련 모듈 설치
+> ```ps
+> # 아래의 모듈 설치
+> $ sudo apt-get install libssl-dev libffi-dev
+> ```
 
+#### 2. Sentry 초기 환경설정
 
-
-2. sentry설치를 마쳤다면, sentry 설정을 진행한다.
+위의 작업까지 진행하여 설치를 완료하였다면 sentry 설정을 진행한다.
 
 ```ps
 # init 파일 생성(기본 생성 위치는 '~/.sentry' 이다)
@@ -154,7 +158,7 @@ $ sentry init {경로 위치}
 ex) sentry init or sentry init /etc/sentry
 ```
 
-  위의 명령어 실행 후 해당 위치에 생성된 sentry.conf.py 파일을 수정
+위의 명령어 실행 후 해당 위치에 생성된 sentry.conf.py 파일을 수정
 
 ```python
 # ~/.sentry/sentry.conf.py
@@ -173,11 +177,9 @@ DATABASES = {
 }
 ```
 
-> Redis의 경우 기본 설정을 그대로 사용한다면 별도로 수정할 부분은 없다
->
-> mail발송을 위한 설정을 할 수 있지만 여기서는 다루지 않는다(메일서버는 sendmail을 이용하는 것이 일반적이다)
+> Redis의 경우 기본 설정을 그대로 사용한다면 별도로 수정할 부분은 없다., mail발송을 위한 설정을 할 수 있지만 여기서는 다루지 않는다(메일서버는 sendmail을 이용하는 것이 일반적이다)
 
-3. 모든 설정을 마무리 하였으면 순차적으로 명령어를 실행하여 migration 작업을 수행한다.
+모든 설정을 마무리 하였으면 순차적으로 명령어를 실행하여 migration 작업을 수행한다.
 
 ```ps
 # sentry migration
@@ -192,33 +194,27 @@ $ sentry upgrade
 $ sentry createuser
 ```
 
-4. migration 까지 마무리 하였다면, 서버를 실행한다. 
+#### 3. Sentry 서버 실행
+
+위의 작업을 모두 완료하였다면 sentry 사용을 위한 서비스들을 실행시킨다. sentry는 데이터 수집 및 스케쥴링, 그리고 Web 서비스를 위한 worker, cron, web 3개의 서비스로 구성되어있다.
 
 ```ps
-# sentry의 web 서버
-$ sentry run web
-
+## 아래의 3가지 서비스를 실행시켜야 정상적인 수행이 가능하다.
 # sentry의 worker
 $ sentry run worker
 
 # sentry의 cron process
 $ sentry run cron
 
-# 위와 같이 3개의 서비스를 실행시켜야 정상적인 수행이 가능하다.
+# sentry의 web 서버., web 서비스의 경우 가장 마지막에 수행하는 것이 좋다
+$ sentry run web
 ```
 
-
-
-5. [nginx 를 이용한 proxy 서버 연동](https://docs.sentry.io/server/installation/python/#setup-a-reverse-proxy) 및 [SSL 인증](https://docs.sentry.io/server/installation/python/#enabling-ssl)에 대해서는 여기서 다루지 않고 링크를 참조한다.
-
-
-
-
-### - Daemon으로 실행
+#### 4. Daemon 실행
 
 위의 단계를 모두 진행하였으면 sentry 서버를 실행하고 사용하는데는 문제가 없지만, daemon 형태로 서비스를 수행하기 위해서는 systemd, upstart와 같은 프로그램을 이용해서 안정적으로 사용이 가능하다.
 
->  추가적으로 ubuntu 15부터 systemd를 지원하며, LTS 버전으로 한정할 경우 16버전부터 지원을 한다.
+> 추가적으로 ubuntu 15부터 systemd를 지원하며, LTS 버전으로 한정할 경우 16버전부터 지원을 한다.
 >
 > 문서에서 설명한 ubuntu 14에서는 upstart를 사용하므로 upstart 스크립트 작성 및 사용법을 기술한다.
 >
@@ -279,7 +275,7 @@ end script
 
 ```
 
-위와 같이 작성 완료 후  `sudo start sentry-web`  명령어를 실행하면 web이 daemon 으로 수행된다. worker, cron도 위와 같이 script를 작성한 뒤에 실행시켜주면 해당 서비스를 수행할 수 있다.
+위와 같이 작성 완료 후 `sudo start sentry-web` 명령어를 실행하면 web이 daemon 으로 수행된다. worker, cron도 위와 같이 script를 작성한 뒤에 실행시켜주면 해당 서비스를 수행할 수 있다.
 
 > 나머지 worker, cron에 관련한 script
 
@@ -319,8 +315,6 @@ post-stop script
 end script
 ```
 
-
-
 ```conf
 # /etc/init/sentry-cron.conf
 start on runlevel [2345]
@@ -357,155 +351,195 @@ post-stop script
 end script
 ```
 
+> 이전 버전의 경우 환경설정의 경로를 `{your path}/sentry/sentry.conf.py` 로 표기하는 경우가 있는데 그럴경우 secret-key 가 없어서 새로 생성하라는 메시지가 뜨는 경우가 있다. 실제로 secret-key가 없는 경우일수도 있지만, 경로가 잘못되어서 발생하는 문제일 수 있다. 최신버전의 sentry는 config.yaml 파일에 secret-key가 존재하기에 최신버전의 경우 환경설정파일 경로를 `{your path}/sentry/` 로 지정해주어야 한다.
 
+## Sentry Upgrade (2020.09.13 내용수정)
 
+> Sentry 8.18.0 => 9.1.2
 
+1. sentry가 설치된 서버에 ssh로 접근을 하여야 한다.
 
-> 이전 버전의 경우 환경설정의 경로를 `{your path}/sentry/sentry.conf.py` 로 표기하는 경우가 있는데 그럴경우 secret-key 가 없어서 새로 생성하라는 메시지가 뜨는 경우가 있다. 실제로 secret-key가 없는 경우일수도 있지만, 경로가 잘못되어서 발생하는 문제일 수 있다. 최신버전의 sentry는 config.yaml 파일에 secret-key가 존재하기에 최신버전의 경우 환경설정파일 경로를  `{your path}/sentry/` 로 지정해주어야 한다.
+2) 해당 서버에 접근하여 sentry가 설치된 python 환경을 activate 시켜준다.
 
+3. activate된 환경에서 기존에 설치된 sentry의 버전을 upgrdate 해준다.
 
-
-## Sentry Upgrade
-
-> 내용 정리 필요. 일단 간단하게 마구 작성함
-
-1. sentry 설치된 서버에 ssh로 접근
-
-2. sentry가 설치된 python 환경설정 on
-
-3. sentry upgrade 
+   > 여기서는 9.1.2 버전의 upgrade에 대한 내용을 다룬다. 9.1.2 이상부터는 Sentry가 docker-compose를 이용한 환경을 지원하기에 그 이상의 버전으로는 가능하다면 docker-compose를 활용한 설치를 추천한다.
 
    ```ps
-   pip install -U sentry
+   $ pip install -U sentry==9.1.2
    ```
 
-4. 설치 다되면, 설정 파일 새로 만들어줌., 단 무조건 꼭 만들어야 하는건 아니고 나도 새로 안만들고 함 하지만 문서를 보면 major update인 경우에는 설정 파일을 새로 만드는 것을 추천한다고 쓰여 있음.
+4. 설치가 완료되었다면, 설정 파일을 새로 만들어준다., `단, 무조건 꼭 만들어야 하는건 아니다` 필자도 새로 만들지 않고 진행을 하였다. 하지만 문서에서는 major update인 경우에는 설정 파일을 새로 만드는 것을 추천한다고 쓰여 있다.
 
-5. sentry 업그레이드를 진행함
+5) 위의 작업까지 완료하였다면, sentry cli를 활용하여, upgrade 명령을 수행한다. Sentry는 django를 기반으로 만들어졌기에 해당 upgrade작업시에 DB 모델의 migration 등의 작업을 같이 해주는 걸로 알고 있다.
+
+   >
 
    ```ps
-   sentry upgrade
+   $ sentry upgrade
    ```
 
-6. 그대로 진행하면 upgrade가 됨 이제 sentry의 모든 서비스들을 새로 켜줘야함.
-   web, worker, cron 등을 모두 종료했다가 새로 켜줌., 그러면 upgrade 완료
+6) sentry upgrade작업까지 완료되었다면 sentry의 모든 서비스들(web, worker, cron)을 새로 restart 해줘야 한다. 이후에 페이지에 접속하여 version을 확인하면 9.1.2로 upgrade된 것을 확인 할 수 있다.
 
-7. 
+## 메일 발송 기능 추가 (2020.09.13 내용수정)
 
+우선 메일 발송을 위해서는 메일 서버를 설치하여야 한다.
 
+```ps
+$ sudo apt-get install -y sendmail && sudo sendmailconfig
+```
 
-sentry upgrade 참조 링크
+메일 서버 설치 후 아래와 같이 설정파일을 수정한다.
 
-1) https://docs.sentry.io/server/upgrading/
+```yaml
+# config.yaml
 
-2) `sentry upgrade` 명령어 실행시 `superuser` 문제에 따른 권한 이슈가 나온다 
+###############
+# Mail Server #
+###############
+mail.backend: "smtp" # Use dummy if you want to disable email entirely
+mail.host: "test.net"
+mail.port: 25
+mail.username: ""
+mail.password: ""
+mail.use-tls: false
+# The email address to send on behalf of
+mail.from: "sentry@test.net"
+```
 
-그럴때 아래 링크 참조
+```py
+# sentry.conf.py
 
-https://github.com/getsentry/sentry/issues/6098#issuecomment-329824716
+ENV_CONFIG_MAPPING = {
+  'SENTRY_EMAIL_PASSWORD': 'mail.password',
+  'SENTRY_EMAIL_USER': 'mail.username',
+  'SENTRY_EMAIL_PORT': ('mail.port', Int),
+  'SENTRY_EMAIL_USE_TLS': ('mail.use-tls', Bool),
+  'SENTRY_EMAIL_HOST': 'mail.host',
+  'SENTRY_SERVER_EMAIL': 'mail.from',
+  'SENTRY_ENABLE_EMAIL_REPLIES': ('mail.enable-replies', Bool),
+  'SENTRY_EMAIL_LIST_NAMESPACE': 'mail.list-namespace',
+  'SENTRY_SMTP_HOSTNAME': 'reply.getsentry.com',
+  'SENTRY_SECRET_KEY': 'system.secret-key',
+  'SENTRY_SMTP_HOST': '0.0.0.0',
+  'SENTRY_SMTP_PORT': 1025,
+  # If you're using mailgun for inbound mail, set your API key and configure a
+  # route to forward to /api/hooks/mailgun/inbound/
+  'SENTRY_MAILGUN_API_KEY': 'mail.mailgun-api-key',
+}
+```
 
+다만, 본인의 경우 위의 방식처럼 tls옵션을 꺼도 계속 true로 표시가 되고, domain 주소가 바뀌지 않아서 직접 module 코드를 수정해 주었다.
 
+```py
+# 설치된 sentry 모듈에서 위의 파일경로를 찾아가서 직접 수정
+...
+def get_connection(fail_silently=False):
+    """
+    Gets an SMTP connection using our OptionsStore
+    """
+    return _get_connection(
+        backend=get_mail_backend(),
+        # host=options.get('mail.host'),
+        # port=options.get('mail.port'),
+        host='localhost',
+        port=25,
+        username=options.get('mail.username'),
+        password=options.get('mail.password'),
+        # use_tls=options.get('mail.use-tls'),
+        use_tls=False,
+        timeout=options.get('mail.timeout'),
+        fail_silently=fail_silently,
+    )
+...
+...
+def send_messages(messages, fail_silently=False):
+    connection = get_connection(fail_silently=fail_silently)
 
-> 링크 정리 후 내용 정리
+    # 아래의 로직은 from_email 주소를 특정 domain으로 수정하기 위한 작업
+    for message in messages:
+      message.from_email = 'sentry@test.net'
 
+    sent = connection.send_messages(messages)
+    metrics.incr('email.sent', len(messages), skip_internal=False)
+    for message in messages:
+        extra = {
+            'message_id': message.extra_headers['Message-Id'],
+            'size': len(message.message().as_bytes()),
+        }
+        logger.info('mail.sent', extra=extra)
+    return sent
+...
+```
 
+## Ubuntu 16 이상 버전의 systemd를 이용한 deamon 실행 (2020.09.13 내용추가)
 
-메일 발송 기능 내용 추가 update 필요
+`etc/systemd/system/` 경로에 service 수행을 위한 파일을 생성한다. 필자는 아래와 같은 명칭으로 생성하였다.(`sentry-web.service`, `sentry-cron.service`, `sentry-worker.service`)
 
-> config.yaml
->
-> ```yaml
-> ###############
-> # Mail Server #
-> ###############
-> 
-> mail.backend: 'smtp'  # Use dummy if you want to disable email entirely
-> mail.host: 'kinx.net'
-> mail.port: 25
-> mail.username: ''
-> mail.password: ''
-> mail.use-tls: false
-> # The email address to send on behalf of
-> mail.from: 'sentry@kinx.net'
-> 
-> ```
->
-> 
+```ps
+# sentry-web.service
+[Unit]
+Description=Sentry Main Service
+After=network.target
+Requires=sentry-cron.service
+Requires=sentry-worker.service
 
-> sentry.conf.py
->
-> ```py
-> ENV_CONFIG_MAPPING = {
->     'SENTRY_EMAIL_PASSWORD': 'mail.password',
->     'SENTRY_EMAIL_USER': 'mail.username',
->     'SENTRY_EMAIL_PORT': ('mail.port', Int),
->     'SENTRY_EMAIL_USE_TLS': ('mail.use-tls', Bool),
->     'SENTRY_EMAIL_HOST': 'mail.host',
->     'SENTRY_SERVER_EMAIL': 'mail.from',
->     'SENTRY_ENABLE_EMAIL_REPLIES': ('mail.enable-replies', Bool),
->     'SENTRY_EMAIL_LIST_NAMESPACE': 'mail.list-namespace',
->     'SENTRY_SMTP_HOSTNAME': 'reply.getsentry.com',
->     'SENTRY_SECRET_KEY': 'system.secret-key',
->     'SENTRY_SMTP_HOST': '0.0.0.0',
->     'SENTRY_SMTP_PORT': 1025,
-> 
-> 
->     # If you're using mailgun for inbound mail, set your API key and configure a
->     # route to forward to /api/hooks/mailgun/inbound/
->     'SENTRY_MAILGUN_API_KEY': 'mail.mailgun-api-key',
-> }
-> 
-> ```
->
-> 
+[Service]
+Type=simple
+User=sentry
+Group=sentry
+WorkingDirectory=/home/sentry/.venv/sentry
+Environment=SENTRY_CONF=/home/sentry/.sentry
+ExecStart=/home/sentry/.venv/sentry/bin/sentry run web
+```
 
+```ps
+# sentry-worker.service
+[Unit]
+Description=Sentry Worker Service
+After=network.target
 
+[Service]
+Type=simple
+User=sentry
+Group=sentry
+WorkingDirectory=/home/sentry/.venv/sentry
+Environment=SENTRY_CONF=/home/sentry/.sentry
+ExecStart=/home/sentry/.venv/sentry/bin/sentry run worker
+```
 
-추가로 저런식으로 해도 이상하게 use-tls가 계속 True로 잡히고, domain 주소가 바뀌지 않아서 직접 module 코드를 수정해 줘야함
+```ps
+# sentry-cron.service
+[Unit]
+Description=Sentry Cron Service
+After=network.target
 
-> sentry/utils/email.py
->
-> ```py
-> # 설치된 sentry 모듈에서 위의 파일경로를 찾아가서 직접 수정
-> ...
-> def get_connection(fail_silently=False):
->     """
->     Gets an SMTP connection using our OptionsStore
->     """
->     return _get_connection(
->         backend=get_mail_backend(),
->         host='localhost',
->         # host=options.get('mail.host'),
->         port=25,
->         # port=options.get('mail.port'),
->         username=options.get('mail.username'),
->         password=options.get('mail.password'),
->         use_tls=False,
->         # use_tls=options.get('mail.use-tls'),
->         timeout=options.get('mail.timeout'),
->         fail_silently=fail_silently,
->     )
-> ...
-> 
-> ...
-> def send_messages(messages, fail_silently=False):
->     connection = get_connection(fail_silently=fail_silently)
-> 
->     # 아래의 로직은 from_email 주소를 특정 domain으로 수정하기 위한 작업
->     for message in messages:
->       message.from_email = 'sentry@kinx.net'
-> 
->     sent = connection.send_messages(messages)
->     metrics.incr('email.sent', len(messages), skip_internal=False)
->     for message in messages:
->         extra = {
->             'message_id': message.extra_headers['Message-Id'],
->             'size': len(message.message().as_bytes()),
->         }
->         logger.info('mail.sent', extra=extra)
->     return sent
-> ...
-> 
-> ```
->
-> 
+[Service]
+Type=simple
+User=sentry
+Group=sentry
+WorkingDirectory=/home/sentry/.venv/sentry
+Environment=SENTRY_CONF=/home/sentry/.sentry
+ExecStart=/home/sentry/.venv/sentry/bin/sentry run cron
+```
+
+위와같이 파일에 내용을 등록한 후 아래의 명령어를 수행하여 service를 수행시킨다.
+
+```ps
+# systemctl 재호출
+$ sudo systemctl daemon-reload
+
+# 추가한 sentry service들 등록
+$ sudo systemctl enable sentry-web
+$ sudo systemctl enable sentry-worker
+$ sudo systemctl enable sentry-cron
+
+# 추가한 sentry service들 시작
+$ sudo systemctl start sentry-worker
+$ sudo systemctl start sentry-cron
+$ sudo systemctl start sentry-web
+```
+
+위의 service 방법을 제외하고 다른 부분은 다른점이 없다.
+
+> 내용에 틀린점이 있거나, 수정할 부분이 있다면 댓글로 피드백 부탁드립니다.
