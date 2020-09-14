@@ -148,7 +148,7 @@ $ pip install -U sentry==8.18.0
 > $ sudo apt-get install libssl-dev libffi-dev
 > ```
 
-#### 2. Sentry 초기 환경설정
+#### 2. Sentry 초기 환경설정
 
 위의 작업까지 진행하여 설치를 완료하였다면 sentry 설정을 진행한다.
 
@@ -353,7 +353,7 @@ end script
 
 > 이전 버전의 경우 환경설정의 경로를 `{your path}/sentry/sentry.conf.py` 로 표기하는 경우가 있는데 그럴경우 secret-key 가 없어서 새로 생성하라는 메시지가 뜨는 경우가 있다. 실제로 secret-key가 없는 경우일수도 있지만, 경로가 잘못되어서 발생하는 문제일 수 있다. 최신버전의 sentry는 config.yaml 파일에 secret-key가 존재하기에 최신버전의 경우 환경설정파일 경로를 `{your path}/sentry/` 로 지정해주어야 한다.
 
-## Sentry Upgrade (2020.09.13 내용수정)
+## Sentry Upgrade by 2020-09-13 내용수정
 
 > Sentry 8.18.0 => 9.1.2
 
@@ -381,7 +381,7 @@ end script
 
 6) sentry upgrade작업까지 완료되었다면 sentry의 모든 서비스들(web, worker, cron)을 새로 restart 해줘야 한다. 이후에 페이지에 접속하여 version을 확인하면 9.1.2로 upgrade된 것을 확인 할 수 있다.
 
-## 메일 발송 기능 추가 (2020.09.13 내용수정)
+## 메일 발송 기능 추가 by 2020-09-13 내용수정
 
 우선 메일 발송을 위해서는 메일 서버를 설치하여야 한다.
 
@@ -472,7 +472,7 @@ def send_messages(messages, fail_silently=False):
 ...
 ```
 
-## Ubuntu 16 이상 버전의 systemd를 이용한 deamon 실행 (2020.09.13 내용추가)
+## Ubuntu 16 이상 버전의 systemd를 이용한 deamon 실행 by 2020-09-13 내용추가
 
 `etc/systemd/system/` 경로에 service 수행을 위한 파일을 생성한다. 필자는 아래와 같은 명칭으로 생성하였다.(`sentry-web.service`, `sentry-cron.service`, `sentry-worker.service`)
 
