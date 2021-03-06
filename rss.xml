@@ -1,4 +1,366 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Third9's Lounge]]></title><description><![CDATA[Third9's Lounge]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 15 Sep 2020 15:57:06 GMT</lastBuildDate><item><title><![CDATA[docker를 이용한 Sentry 20.8.0 설치와 Upgrade]]></title><description><![CDATA[Sentry on-premise 최신버전인 20.8.0 을 docker-compose를 이용하여 설치하는 방법과, 이전 docker를 사용하지 않은 9.1.2 버전을 docker를 사용한 형태로 upgrade 하는 방법에 대해서 다룹니다.]]></description><link>https://third9.github.io/posts/docker를_이용한_Sentry_20_설치_upgrade/</link><guid isPermaLink="false">https://third9.github.io/posts/docker를_이용한_Sentry_20_설치_upgrade/</guid><pubDate>Mon, 14 Sep 2020 23:22:12 GMT</pubDate><content:encoded>&lt;h1 id=&quot;sentry-2080-설치와-upgrade&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#sentry-2080-%EC%84%A4%EC%B9%98%EC%99%80-upgrade&quot; aria-label=&quot;sentry 2080 설치와 upgrade permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Sentry 20.8.0 설치와 Upgrade&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Third9's Lounge]]></title><description><![CDATA[Third9's Lounge]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 06 Mar 2021 15:37:22 GMT</lastBuildDate><item><title><![CDATA[Axios 다양하게 활용하기: interceptor]]></title><description><![CDATA[axios에서 interceptor를 활용한 방법에 대해서 간략히 다룹니다.]]></description><link>https://third9.github.io/posts/Axios다양하게_활용하기-interceptor/</link><guid isPermaLink="false">https://third9.github.io/posts/Axios다양하게_활용하기-interceptor/</guid><pubDate>Tue, 02 Mar 2021 08:01:14 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;💡 새로운 서비스를 개발하면서 개인적으로 정리한 내용들입니다. 글이 깔끔하지 않을 수 있습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;📔 이전글 보기: &lt;a href=&quot;/posts/Axios%EB%8B%A4%EC%96%91%ED%95%98%EA%B2%8C_%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-async_await%EC%82%AC%EC%9A%A9/&quot;&gt;Axios 다양하게 활용하기: async/await사용&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;axios-모듈에-공통-설정을-적용하여-사용하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#axios-%EB%AA%A8%EB%93%88%EC%97%90-%EA%B3%B5%ED%86%B5-%EC%84%A4%EC%A0%95%EC%9D%84-%EC%A0%81%EC%9A%A9%ED%95%98%EC%97%AC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0&quot; aria-label=&quot;axios 모듈에 공통 설정을 적용하여 사용하기 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Axios 모듈에 공통 설정을 적용하여 사용하기&lt;/h1&gt;
+&lt;h2 id=&quot;axios에-기본설정-적용하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#axios%EC%97%90-%EA%B8%B0%EB%B3%B8%EC%84%A4%EC%A0%95-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0&quot; aria-label=&quot;axios에 기본설정 적용하기 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Axios에 기본설정 적용하기&lt;/h2&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;0&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// react를 기준으로 작성&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; Axios &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;axios&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; axiosInstance &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; Axios.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;({&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  timeout: &lt;/span&gt;&lt;span class=&quot;mtk4&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  headers: {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Content-Type&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;application/json&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;});&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// 아래와 같이 사용하면 기본으로 위의 timeout 및 header 설정이 되어있다.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;axiosInstance.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;https://test.com/api/v1&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;위와 같이 axiosInstance라는 객체를 만들어서 사용하게 되면 모든 axios 호출시에 timout 제한이 5초로 설정되고, headers에 &lt;code&gt;application/json&lt;/code&gt; 설정이 들어가게 된다.&lt;/p&gt;
+&lt;h2 id=&quot;axios에서-request와-response를-interceptor-하기&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#axios%EC%97%90%EC%84%9C-request%EC%99%80-response%EB%A5%BC-interceptor-%ED%95%98%EA%B8%B0&quot; aria-label=&quot;axios에서 request와 response를 interceptor 하기 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Axios에서 request와 response를 interceptor 하기&lt;/h2&gt;
+&lt;p&gt;Axios는 위에서도 언급했듯이 http 통신을 위한 모듈료 RestAPI와 통신을 하는데 많이 사용된다. 문서를 보면 여러가지 사용법등이 있지만, 본인이 신규 프로젝트 진행시에 가장 덕을 보았던 부분은 request와 response를 &lt;code&gt;interceptor&lt;/code&gt; 하는 부분이었다.&lt;/p&gt;
+&lt;p&gt;이름 그대로 request/response 이벤트를 interceptor 하는데, request 시에는 server로 요청보내기 바로전의 정보를 interceptor하며, response는 서버에서 요청받아온 데이터를 front로 return하기전에 interceptor가 가능하다. 자세한 내용은 아래 코드를 보자&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;1&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// request를 interceptor 하기&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;axiosInstance.interceptors.request.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  (&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk3&quot;&gt;/* config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    설정값들이 들어있다.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    * 활용 *&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    1. api요청의 경우 token이 필요한 경우가 있는데, 필요에 따른 토큰 정보들을 여기서 처리할 경우&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    토큰에 대한 정보를 여러곳에서 처리하지 않아도 된다.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    2. 요청 method에 따른 외부로 드러내지 않고 처리하고 싶은 부분에 대한 작업이 가능.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    **/&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; config;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  (&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk3&quot;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    request 요청을 보낼때 error가 발생하는 경우 여기서 catch가 가능하다.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    */&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(err);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  }&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// response를 interceptor 하기&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;axiosInstance.interceptors.response.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  (&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk3&quot;&gt;/* 요청을 보낸 뒤에 response(응답)이 오는 경우에 여기서 먼저 확인이 가능하다.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    * 활용 *&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    1. status-code가 정상적이어도 내용상의 이유로 에러처리가 필요한 경우&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    2. 민감정보 또는 데이터에 대한 가공 작업&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    **/&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; config;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  ({ &lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; }) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk3&quot;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    response응답 후에 status-code가 4xx, 5xx 처럼 에러를 나타내는 경우 해당 루트를 수행한다.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;    */&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; errMsg &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Error Message&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;({ config, message: errMsg, response, &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;err });&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  }&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;위의 방식을 사용하면 좀더 다양하게 활용이 가능하다.&lt;/p&gt;
+&lt;h2 id=&quot;custom-axios-활용&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#custom-axios-%ED%99%9C%EC%9A%A9&quot; aria-label=&quot;custom axios 활용 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Custom Axios 활용&lt;/h2&gt;
+&lt;p&gt;위에서 작성한것처럼 custom axios 파일을 만들어서 실제 서비스에서 활용하자. 우선 필요에 따른 기능들이 구현된 별도의 파일을 아래처럼 만든다.&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;2&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// axiosConfig.js&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; React &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;react&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; Axios &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;axios&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; axiosInstance &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; Axios.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;({&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  timeout: &lt;/span&gt;&lt;span class=&quot;mtk4&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  headers: {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Content-Type&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;application/json&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;});&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;axiosInstance.interceptors.request.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  (&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; config;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  (&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(err);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  }&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;axiosInstance.interceptors.response.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  (&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; config;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  (&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(err);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  }&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;export&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; axiosInstance;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;사용하려는 위치에서 해당 파일을 import 한뒤 기존엔 axios를 사용하듯이 이용한다&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;3&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// App.js&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; React &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;react&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; axiosInstance &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;axiosConfig&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk3&quot;&gt;// 해당 import 위치는 axiosConfig.js 파일 위치에 따라 다르다/&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;axiosInstance.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;https://test.com/api/v1&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;위와 같은 형태로 설정된 axios 코드를 import 하여 기존 axios 를 사용하듯이 사용하면 된다.&lt;/p&gt;
+&lt;style class=&quot;grvsc-styles&quot;&gt;
+  .grvsc-container {
+    overflow: auto;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 1rem;
+    padding-top: var(--grvsc-padding-top, var(--grvsc-padding-v, 1rem));
+    padding-bottom: 1rem;
+    padding-bottom: var(--grvsc-padding-bottom, var(--grvsc-padding-v, 1rem));
+    border-radius: 8px;
+    border-radius: var(--grvsc-border-radius, 8px);
+    font-feature-settings: normal;
+    line-height: 1.4;
+  }
+  
+  .grvsc-code {
+    display: table;
+  }
+  
+  .grvsc-line {
+    display: table-row;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+  }
+  
+  .grvsc-line &gt; * {
+    position: relative;
+  }
+  
+  .grvsc-gutter-pad {
+    display: table-cell;
+    padding-left: 0.75rem;
+    padding-left: calc(var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem)) / 2);
+  }
+  
+  .grvsc-gutter {
+    display: table-cell;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .grvsc-gutter::before {
+    content: attr(data-content);
+  }
+  
+  .grvsc-source {
+    display: table-cell;
+    padding-left: 1.5rem;
+    padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem));
+    padding-right: 1.5rem;
+    padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 1.5rem));
+  }
+  
+  .grvsc-source:empty::after {
+    content: &apos; &apos;;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .grvsc-gutter + .grvsc-source {
+    padding-left: 0.75rem;
+    padding-left: calc(var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem)) / 2);
+  }
+  
+  /* Line transformer styles */
+  
+  .grvsc-has-line-highlighting &gt; .grvsc-code &gt; .grvsc-line::before {
+    content: &apos; &apos;;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .grvsc-line-diff-add::before {
+    background-color: var(--grvsc-line-diff-add-background-color, rgba(0, 255, 60, 0.2));
+  }
+  
+  .grvsc-line-diff-del::before {
+    background-color: var(--grvsc-line-diff-del-background-color, rgba(255, 0, 20, 0.2));
+  }
+  
+  .grvsc-line-number {
+    padding: 0 2px;
+    text-align: right;
+    opacity: 0.7;
+  }
+  
+  .monokai {
+    background-color: #272822;
+    color: #f8f8f2;
+  }
+  .monokai .mtki { font-style: italic; }
+  .monokai .mtk3 { color: #75715E; }
+  .monokai .mtk7 { color: #F92672; }
+  .monokai .mtk1 { color: #F8F8F2; }
+  .monokai .mtk6 { color: #E6DB74; }
+  .monokai .mtk9 { color: #66D9EF; }
+  .monokai .mtk5 { color: #A6E22E; }
+  .monokai .mtk4 { color: #AE81FF; }
+  .monokai .mtk10 { color: #FD971F; }
+  .monokai .grvsc-line-highlighted::before {
+    background-color: var(--grvsc-line-highlighted-background-color, rgba(255, 255, 255, 0.1));
+    box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(255, 255, 255, 0.5));
+  }
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[Axios 다양하게 활용하기: async/await사용]]></title><description><![CDATA[axios를 async/await 구문을 이용하여 개발하는 방법에 대한 간략한 정리]]></description><link>https://third9.github.io/posts/Axios다양하게_활용하기-async_await사용/</link><guid isPermaLink="false">https://third9.github.io/posts/Axios다양하게_활용하기-async_await사용/</guid><pubDate>Tue, 02 Mar 2021 00:02:49 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;💡 새로운 서비스를 개발하면서 개인적으로 정리한 내용들입니다. 글이 깔끔하지 않을 수 있습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;📔 다음글 보기: &lt;a href=&quot;/posts/Axios%EB%8B%A4%EC%96%91%ED%95%98%EA%B2%8C_%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-interceptor/&quot;&gt;Axios 다양하게 활용하기: interceptor&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;axios&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#axios&quot; aria-label=&quot;axios permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Axios?&lt;/h1&gt;
+&lt;p&gt;axios는 js 기반의 환경에서 http 통신을 수행할때 사용하는 모듈로 많은 사람들이 사용 중으로 알고있다.
+해당 모듈을 별도의 설정없이도 사용이 가능하지만, 프로젝트 진행시에는 공통된 옵션을 기본설정하여 사용할 수 있다.
+여기서는 axios의 기본 사용법보다는 프로젝트에서 사용할때 도움이 될 만한 내용을 정리하며, 기본 내용 및 관련한 내용들은 모두 &lt;a href=&quot;https://github.com/axios/axios&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;공식문서&lt;/a&gt;를 참조하였습니다.&lt;/p&gt;
+&lt;h1 id=&quot;axios를-asyncawait-를-이용하여-사용하는-방법&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#axios%EB%A5%BC-asyncawait-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95&quot; aria-label=&quot;axios를 asyncawait 를 이용하여 사용하는 방법 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Axios를 async/await 를 이용하여 사용하는 방법&lt;/h1&gt;
+&lt;p&gt;axios를 이용하여 API호출을 하는 경우 바로 응답이 오지 않기에 일반적으로 비동기 방식을 사용한다. axios 문서에서도 기본적으로 소개하는 사용방식은 Promise-then 방식의 비동기 호출방식을 소개하고 있다. 다만 then 방식의 경우도 api 호출이 복잡해지면 then을 then 내부에서건 또는 chain 형태로 연달아서 쓰는 경우는 발생한다.&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;0&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// then 을 연속적으로 호출하는 예시&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; TestApiCall &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; () {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  axios.get(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;https://test.com/api/v1&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    .then((response) =&amp;gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;      const data = response.data;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;      const userId = data.userId;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;      axios.get(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;https://test2.com/api/v2/&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; + userId)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;        .then((response) =&amp;gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;          console.log(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Response &amp;gt;&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, response.data)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;        })&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;        .&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(() &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;        })&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    })&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    .&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Error &amp;gt;&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, err);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    })&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;위와 같은 형태는 예시이다. 다만 위와 같이 보기에 복잡(불편) 할 수 있는 코드가 나타날 수 있고, js에서도 async/await 를 이용한 비동기 구문이 추가 되었기에 axios도 이를 지원하고 있다. 개인적으로도 async/await 방식을 선호한다.&lt;/p&gt;
+&lt;p&gt;아래는 async/await 구문을 이용한 방식의 코드이다. 다만 해당 구문에서는 에러처리를 try-catch 방식을 이용해서 작업해야 한다.&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;1&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// async/await 를 활용하는 수정된 방식&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; TestApiCall &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; () {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  try {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    const response &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;await&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; axios.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;https://test.com/api/v1&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    const userId &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; response.data.userId;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    const response2 &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;await&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; axios.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;https://test2.com/api/v2/&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; userId);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    console.log(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;response &amp;gt;&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, response2.data)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  } &lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(err) {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;    console.log(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Error &amp;gt;&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, err);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  }&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이전의 then 방식에 비해서 위의 방식이 보기에도 작성하기에도 깔끔하다.&lt;/p&gt;
+&lt;style class=&quot;grvsc-styles&quot;&gt;
+  .grvsc-container {
+    overflow: auto;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 1rem;
+    padding-top: var(--grvsc-padding-top, var(--grvsc-padding-v, 1rem));
+    padding-bottom: 1rem;
+    padding-bottom: var(--grvsc-padding-bottom, var(--grvsc-padding-v, 1rem));
+    border-radius: 8px;
+    border-radius: var(--grvsc-border-radius, 8px);
+    font-feature-settings: normal;
+    line-height: 1.4;
+  }
+  
+  .grvsc-code {
+    display: table;
+  }
+  
+  .grvsc-line {
+    display: table-row;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+  }
+  
+  .grvsc-line &gt; * {
+    position: relative;
+  }
+  
+  .grvsc-gutter-pad {
+    display: table-cell;
+    padding-left: 0.75rem;
+    padding-left: calc(var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem)) / 2);
+  }
+  
+  .grvsc-gutter {
+    display: table-cell;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .grvsc-gutter::before {
+    content: attr(data-content);
+  }
+  
+  .grvsc-source {
+    display: table-cell;
+    padding-left: 1.5rem;
+    padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem));
+    padding-right: 1.5rem;
+    padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 1.5rem));
+  }
+  
+  .grvsc-source:empty::after {
+    content: &apos; &apos;;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .grvsc-gutter + .grvsc-source {
+    padding-left: 0.75rem;
+    padding-left: calc(var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem)) / 2);
+  }
+  
+  /* Line transformer styles */
+  
+  .grvsc-has-line-highlighting &gt; .grvsc-code &gt; .grvsc-line::before {
+    content: &apos; &apos;;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .grvsc-line-diff-add::before {
+    background-color: var(--grvsc-line-diff-add-background-color, rgba(0, 255, 60, 0.2));
+  }
+  
+  .grvsc-line-diff-del::before {
+    background-color: var(--grvsc-line-diff-del-background-color, rgba(255, 0, 20, 0.2));
+  }
+  
+  .grvsc-line-number {
+    padding: 0 2px;
+    text-align: right;
+    opacity: 0.7;
+  }
+  
+  .monokai {
+    background-color: #272822;
+    color: #f8f8f2;
+  }
+  .monokai .mtki { font-style: italic; }
+  .monokai .mtk3 { color: #75715E; }
+  .monokai .mtk9 { color: #66D9EF; }
+  .monokai .mtk1 { color: #F8F8F2; }
+  .monokai .mtk7 { color: #F92672; }
+  .monokai .mtk6 { color: #E6DB74; }
+  .monokai .mtk5 { color: #A6E22E; }
+  .monokai .mtk10 { color: #FD971F; }
+  .monokai .grvsc-line-highlighted::before {
+    background-color: var(--grvsc-line-highlighted-background-color, rgba(255, 255, 255, 0.1));
+    box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(255, 255, 255, 0.5));
+  }
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[docker를 이용한 Sentry 20.8.0 설치와 Upgrade]]></title><description><![CDATA[Sentry on-premise 최신버전인 20.8.0 을 docker-compose를 이용하여 설치하는 방법과, 이전 docker를 사용하지 않은 9.1.2 버전을 docker를 사용한 형태로 upgrade 하는 방법에 대해서 다룹니다.]]></description><link>https://third9.github.io/posts/docker를_이용한_Sentry_20_설치_upgrade/</link><guid isPermaLink="false">https://third9.github.io/posts/docker를_이용한_Sentry_20_설치_upgrade/</guid><pubDate>Mon, 14 Sep 2020 23:22:12 GMT</pubDate><content:encoded>&lt;h1 id=&quot;sentry-2080-설치와-upgrade&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#sentry-2080-%EC%84%A4%EC%B9%98%EC%99%80-upgrade&quot; aria-label=&quot;sentry 2080 설치와 upgrade permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Sentry 20.8.0 설치와 Upgrade&lt;/h1&gt;
 &lt;p&gt;이전에 sentry에 대해서 다루었지만, 한동안 안본 사이에 버전이 20.8.0으로 upgrade 되었다.
 그와 함께 docker-compose를 이용하여 설치하도록 변경되어으며, 좀더 대용량 데이터 처리에 적합하게 다양한 서비스들이 추가되었다.&lt;/p&gt;
 &lt;blockquote&gt;
