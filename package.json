@@ -4,6 +4,7 @@
   "description": "A minimal, lightweight and mobile-first starter for creating blazing-fast static blogs",
   "main": "n/a",
   "scripts": {
+    "new-post": "node ./newPost.js",
     "develop": "yarn run clean && gatsby develop",
     "build": "yarn run clean && gatsby build",
     "deploy": "yarn run clean && gatsby build --prefix-paths && gh-pages -d public -b master",
@@ -16,8 +17,8 @@
     "test:coverage": "jest --coverage --config ./jest/jest-config.js",
     "test:watch": "jest --watch --config ./jest/jest-config.js"
   },
-  "repository": "https://github.com/Third9/third9.github.io",
-  "author": "Alexander Shelepenok <alxshelepenok@gmail.com>",
+  "repository": "https://Third9@github.com/Third9/third9.github.io.git",
+  "author": "Third9 <dev.third9@gmail.com>",
   "license": "MIT",
   "keywords": [
     "gatsby",
