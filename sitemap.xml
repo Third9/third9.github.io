@@ -4,21 +4,21 @@
 <url> <loc>https://third9.github.io/categories</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/DRF(Django-Rest-Framework)를_이용한_pagination/search_기능_구현/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/Python으로_SSL_인증서_정보 추출 및 검증/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://third9.github.io/posts/drf-testcase-인증방법/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/openstack_contributor_도전/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://third9.github.io/posts/CRA(create-react-app)에서_민감정보_처리하기/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://third9.github.io/posts/drf-testcase-인증방법/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/Django_ORM_Query-related/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://third9.github.io/posts/CRA(create-react-app)에서_민감정보_처리하기/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/python3.7에서_Dict가_정렬이_되는_이유/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/github와_gatsby로_블로그_운영하기2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://third9.github.io/posts/Axios다양하게_활용하기-async_await사용/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/multi-proxy_of_react/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://third9.github.io/posts/Axios다양하게_활용하기-async_await사용/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/Axios다양하게_활용하기-interceptor/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://third9.github.io/pages/contacts/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://third9.github.io/pages/about/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/github와_gatsby로_블로그_운영하기/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://third9.github.io/posts/네이버_카페_crawling2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/네이버_카페_crawling1/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://third9.github.io/posts/네이버_카페_crawling2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/docker를_이용한_Sentry_20_설치_upgrade/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://third9.github.io/pages/about/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://third9.github.io/pages/contacts/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/posts/sentry_server_설치/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/tag/django</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://third9.github.io/tag/django-rest-framework</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
