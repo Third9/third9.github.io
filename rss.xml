@@ -1,4 +1,163 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Third9's Lounge]]></title><description><![CDATA[Third9's Lounge]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 07 Mar 2021 02:39:31 GMT</lastBuildDate><item><title><![CDATA[Axios 다양하게 활용하기: interceptor]]></title><description><![CDATA[axios에서 interceptor를 활용한 방법에 대해서 간략히 다룹니다.]]></description><link>https://third9.github.io/posts/Axios다양하게_활용하기-interceptor/</link><guid isPermaLink="false">https://third9.github.io/posts/Axios다양하게_활용하기-interceptor/</guid><pubDate>Tue, 02 Mar 2021 08:01:14 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Third9's Lounge]]></title><description><![CDATA[Third9's Lounge]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 28 Jul 2021 07:43:46 GMT</lastBuildDate><item><title><![CDATA[react-i18next를 일반 코드에서 사용하기]]></title><description><![CDATA[다국어 모듈인 react-i18next를 일반 함수처럼 활용하기]]></description><link>https://third9.github.io/posts/react-i18next(without_Hook)/</link><guid isPermaLink="false">https://third9.github.io/posts/react-i18next(without_Hook)/</guid><pubDate>Wed, 28 Jul 2021 05:37:08 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;p&gt;💡 서비스를 개발하면서 개인적으로 정리한 내용으로 글이 깔끔하지 않을 수 있습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;tldr&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#tldr&quot; aria-label=&quot;tldr permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;TL;DR&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://react.i18next.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;react-i18next&lt;/a&gt; 모듈을 hook이 아닌 방식으로 사용하는 방법을 설명합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;개요&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EA%B0%9C%EC%9A%94&quot; aria-label=&quot;개요 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;개요&lt;/h2&gt;
+&lt;p&gt;React를 기반으로 개발할때 다국어 기능을 추가할 경우 선택하는 모듈중의 하나가 &lt;code&gt;react-i18next&lt;/code&gt; 으로 react-i18next는 React의 hook을 지원하며, 빠르고 간편하게 다국어 기능을 구현할 수 있다.&lt;/p&gt;
+&lt;p&gt;다만, hook이 아닌 일반 코드에서 다른 모듈을 사용하지 않고 동일한 모듈을 이용하려 구현한다면 별도의 추가작업을 해야하는데, 여기서는 그 추가 작업에 대한 내용을 중점으로 다룬다.&lt;/p&gt;
+&lt;h2 id=&quot;기본적인-i18next-사용&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EA%B8%B0%EB%B3%B8%EC%A0%81%EC%9D%B8-i18next-%EC%82%AC%EC%9A%A9&quot; aria-label=&quot;기본적인 i18next 사용 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;기본적인 i18next 사용&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;🚨 우리가 사용하는건 i18next를 기반으로 만든 &lt;code&gt;react-i18next&lt;/code&gt;입니다. &lt;code&gt;i18next&lt;/code&gt;가 아닙니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;다국어 처리를 위해서 react-i18next를 사용할때 hook 기반의 &lt;code&gt;useTranslation&lt;/code&gt; 를 이용하여 매우 편리하게 사용이 가능하다.&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;0&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; React &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;react&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; { useTranslation } &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;react-i18next&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;TransComponent&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk5 mtku&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mtk5 mtku&quot;&gt;FC&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; () &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; (&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;	&amp;lt;&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;translate me&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;위와 같이 사용하기만 해도 &lt;code&gt;translate me&lt;/code&gt; 는 다국어 처리가 된다.&lt;/p&gt;
+&lt;h2 id=&quot;function-형태로-사용&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#function-%ED%98%95%ED%83%9C%EB%A1%9C-%EC%82%AC%EC%9A%A9&quot; aria-label=&quot;function 형태로 사용 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;function 형태로 사용&lt;/h2&gt;
+&lt;p&gt;하지만, 개발도중 변수 또는 상수등의 값에 다국어 처리를 하려는 경우 위와 같은 방식은 사용할 수 없다.(component에 props 형태로 전달 방식도 가능하지만, 전달되는 모든 값이 아닌 필요 값만 변환되길 원한다.)&lt;/p&gt;
+&lt;p&gt;예를 들어서 아래와 같이 선언된 코드에서 다국어 처리를 하려면, 해당 값을 component 내에 선언하지 않는 이상 다국어가 적용되지 않는다.&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;1&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// TableConf.js&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;export&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; TableColumns &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; [&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  { title: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Column1&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, index: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;column1&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  { title: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Column2&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, index: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;column2&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  { title: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Column3&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, index: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;column3&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;];&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;이럴때 아래와 같은 function을 만들어서 활용이 가능하다.&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;jsx&quot; data-index=&quot;2&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// funcTrans.js&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; { Translation } &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;react-i18next&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;export&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;funcTransI18N&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;Translation&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, { &lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;i18n&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; }) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(value)&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;Translation&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;&amp;gt;;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// TableConf.js&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk7&quot;&gt;export&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; TableColumns &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; [&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  { title: &lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;funcTransI18N&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Column1&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;), index: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;column1&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  { title: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Column2&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, index: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;column2&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  { title: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;Column3&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, index: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;quot;column3&amp;quot;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; },&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;];&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;위와같이 처리할 경우 기존의 react-i18next 모듈을 이용하면서 기본 JS 코드에서도 다국어를 같이 적용하여 사용 가능하다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;💡 &lt;code&gt;react-i18next&lt;/code&gt; 의 설정 및 사용법도 알고싶다면 comment 또는 mail로 요청주세요.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;style class=&quot;grvsc-styles&quot;&gt;
+  .grvsc-container {
+    overflow: auto;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 1rem;
+    padding-top: var(--grvsc-padding-top, var(--grvsc-padding-v, 1rem));
+    padding-bottom: 1rem;
+    padding-bottom: var(--grvsc-padding-bottom, var(--grvsc-padding-v, 1rem));
+    border-radius: 8px;
+    border-radius: var(--grvsc-border-radius, 8px);
+    font-feature-settings: normal;
+    line-height: 1.4;
+  }
+  
+  .grvsc-code {
+    display: table;
+  }
+  
+  .grvsc-line {
+    display: table-row;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+  }
+  
+  .grvsc-line &gt; * {
+    position: relative;
+  }
+  
+  .grvsc-gutter-pad {
+    display: table-cell;
+    padding-left: 0.75rem;
+    padding-left: calc(var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem)) / 2);
+  }
+  
+  .grvsc-gutter {
+    display: table-cell;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .grvsc-gutter::before {
+    content: attr(data-content);
+  }
+  
+  .grvsc-source {
+    display: table-cell;
+    padding-left: 1.5rem;
+    padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem));
+    padding-right: 1.5rem;
+    padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 1.5rem));
+  }
+  
+  .grvsc-source:empty::after {
+    content: &apos; &apos;;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  .grvsc-gutter + .grvsc-source {
+    padding-left: 0.75rem;
+    padding-left: calc(var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem)) / 2);
+  }
+  
+  /* Line transformer styles */
+  
+  .grvsc-has-line-highlighting &gt; .grvsc-code &gt; .grvsc-line::before {
+    content: &apos; &apos;;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .grvsc-line-diff-add::before {
+    background-color: var(--grvsc-line-diff-add-background-color, rgba(0, 255, 60, 0.2));
+  }
+  
+  .grvsc-line-diff-del::before {
+    background-color: var(--grvsc-line-diff-del-background-color, rgba(255, 0, 20, 0.2));
+  }
+  
+  .grvsc-line-number {
+    padding: 0 2px;
+    text-align: right;
+    opacity: 0.7;
+  }
+  
+  .monokai {
+    background-color: #272822;
+    color: #f8f8f2;
+  }
+  .monokai .mtku {
+    text-decoration: underline;
+    text-underline-position: under;
+  }
+  .monokai .mtki { font-style: italic; }
+  .monokai .mtk7 { color: #F92672; }
+  .monokai .mtk1 { color: #F8F8F2; }
+  .monokai .mtk6 { color: #E6DB74; }
+  .monokai .mtk9 { color: #66D9EF; }
+  .monokai .mtk5 { color: #A6E22E; }
+  .monokai .mtk3 { color: #75715E; }
+  .monokai .mtk10 { color: #FD971F; }
+  .monokai .grvsc-line-highlighted::before {
+    background-color: var(--grvsc-line-highlighted-background-color, rgba(255, 255, 255, 0.1));
+    box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(255, 255, 255, 0.5));
+  }
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[Axios 다양하게 활용하기: interceptor]]></title><description><![CDATA[axios에서 interceptor를 활용한 방법에 대해서 간략히 다룹니다.]]></description><link>https://third9.github.io/posts/Axios다양하게_활용하기-interceptor/</link><guid isPermaLink="false">https://third9.github.io/posts/Axios다양하게_활용하기-interceptor/</guid><pubDate>Tue, 02 Mar 2021 08:01:14 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;💡 새로운 서비스를 개발하면서 개인적으로 정리한 내용들입니다. 글이 깔끔하지 않을 수 있습니다.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
@@ -588,7 +747,7 @@
     box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, rgba(255, 255, 255, 0.5));
   }
 &lt;/style&gt;</content:encoded></item><item><title><![CDATA[React환경의 Multi-Proxy 구현]]></title><description><![CDATA[React환경에서 multi-proxy사용하기]]></description><link>https://third9.github.io/posts/multi-proxy_of_react/</link><guid isPermaLink="false">https://third9.github.io/posts/multi-proxy_of_react/</guid><pubDate>Sun, 21 Jun 2020 07:53:12 GMT</pubDate><content:encoded>&lt;blockquote&gt;
-&lt;p&gt;🚨아래에서 설명할 proxy customize를 원활히 수행하기 위해서는 CRA(v2)가 필수이다. react 프로젝트 생성시에 CRA(v2)를 이용하지 않았을 경우 원활한 수행이 안될 수 있다.&lt;/p&gt;
+&lt;p&gt;🚨 아래에서 설명할 proxy customize를 원활히 수행하기 위해서는 CRA(v2)가 필수이다. react 프로젝트 생성시에 CRA(v2)를 이용하지 않았을 경우 원활한 수행이 안될 수 있다.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;intro&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#intro&quot; aria-label=&quot;intro permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Intro&lt;/h2&gt;
 &lt;p&gt;React를 이용한 프로젝트를 진행하면서 겪었던 삽질들을 하나하나 정리중이다. 그 중에서 React를 이용하여 외부의 API 를 호출할때 cors 이슈가 발생하였는데, 해당 이슈는 server 에서 response 되는 내용의 header에 &lt;code&gt;&apos;Access-Control-Allow-Origin&apos;: &apos;*&apos;&lt;/code&gt; 를 넣어주면 해결이 되는 것으로 알고 있지만 server를 수정할 수 있는 권한이 없는 경우에는 reactjs 의 &lt;code&gt;package.json&lt;/code&gt; 에 &lt;code&gt;proxy&lt;/code&gt; 설정을 해주면 된다.&lt;/p&gt;
@@ -612,7 +771,7 @@
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;8&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		&lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(res);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;9&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;	} &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; (err) {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;10&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		&lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(err);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;11&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;	}	  &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;11&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;	}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;12&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;13&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;14&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk3&quot;&gt;// HTTP POST&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
@@ -622,9 +781,9 @@
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;18&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		&lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(res);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;19&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;	} &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; (err) {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;20&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		&lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(err);&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;21&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;	}	  &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;21&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;	}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;22&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;위와 같은 코드를 선언하고, &lt;code&gt;getReq&lt;/code&gt; , &lt;code&gt;postReq&lt;/code&gt; function을 호출하게 된다면 두 요청 모두 우리가 위에서 설정한 proxy 경로를 타고 호출된다. &lt;/p&gt;
+&lt;p&gt;위와 같은 코드를 선언하고, &lt;code&gt;getReq&lt;/code&gt; , &lt;code&gt;postReq&lt;/code&gt; function을 호출하게 된다면 두 요청 모두 우리가 위에서 설정한 proxy 경로를 타고 호출된다.&lt;/p&gt;
 &lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;ps&quot; data-index=&quot;2&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;getReq ⇒ http:&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;local.test.com&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;local&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;req&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;postReq ⇒ http:&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;local.test.com&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;req&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;다만, 서비스 종류에 따라서 한곳이 아닌 복수의 경로로 호출을 해야할 수 있다. 그러한 경우에는 &lt;code&gt;http-proxy-middleware&lt;/code&gt; 를 이용한다.&lt;/p&gt;
@@ -638,8 +797,8 @@
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;4&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;exports&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;mtk10 mtki&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;mtk9 mtki&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;5&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;mtk3&quot;&gt;// auth 포함 하위 route에 대해서는 localhost:5000/v1을 domain으로 하여 proxy설정&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;6&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;  app.&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;7&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;/local&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;, &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;8&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;createProxyMiddleware&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;({ &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;7&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		&lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;/local&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;8&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		&lt;/span&gt;&lt;span class=&quot;mtk5&quot;&gt;createProxyMiddleware&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;({&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;9&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;			target: &lt;/span&gt;&lt;span class=&quot;mtk6&quot;&gt;&amp;#39;http://local.test.com&amp;#39;&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;10&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;			changeOrigin: &lt;/span&gt;&lt;span class=&quot;mtk4&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-gutter-pad&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-gutter grvsc-line-number&quot; aria-hidden=&quot;true&quot; data-content=&quot;11&quot;&gt;&lt;/span&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;		}))&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
@@ -654,7 +813,7 @@
 &lt;p&gt;위와 같이 작성한 경우 route 설정에 따라서 동작하며, 위에서 사용했던 &lt;code&gt;apiConnectTest.js&lt;/code&gt; 코드를 예로 든다면 아래와 같이 동작한다.&lt;/p&gt;
 &lt;pre class=&quot;grvsc-container monokai&quot; data-language=&quot;ps&quot; data-index=&quot;5&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;getReq ⇒ http:&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;local.test.com&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;local&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;req&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;mtk1&quot;&gt;postReq ⇒ http:&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mtk9&quot;&gt;remote.test.com&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;mtk7&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mtk1&quot;&gt;req&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;여기서는 언급하지 않았지만  &lt;code&gt;http-proxy-middleware&lt;/code&gt; 모듈을 이용하면 pathRewrite 옵션을 통해서 새로운 api로의 rewrite 기능도 사용이 가능하다.&lt;/p&gt;
+&lt;p&gt;여기서는 언급하지 않았지만 &lt;code&gt;http-proxy-middleware&lt;/code&gt; 모듈을 이용하면 pathRewrite 옵션을 통해서 새로운 api로의 rewrite 기능도 사용이 가능하다.&lt;/p&gt;
 &lt;style class=&quot;grvsc-styles&quot;&gt;
   .grvsc-container {
     overflow: auto;
