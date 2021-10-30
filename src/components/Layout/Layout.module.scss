@@ -1,8 +1,8 @@
-@import '../../assets/scss/variables';
-@import '../../assets/scss/mixins';
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
 
 .layout {
-    lost-center: $layout-width;
-    max-width: 100%;
-    display: table;
+  lost-center: $layout-width;
+  max-width: 100%;
+  display: content;
 }

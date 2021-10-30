@@ -4,14 +4,19 @@
 .post {
   &__footer {
     max-width: 100%;
-    margin: 0 8% 0 23%;
     padding: 0 15px;
+    // margin: 0 8% 0 23%;
+    @media (min-width: 1023px) {
+      margin: 0 8% 0 23%;
+    }
   }
 
   &__comments {
     max-width: 100%;
-    margin: 0 8% 0 23%;
     padding: 0 15px;
+    @media (min-width: 1023px) {
+      margin: 0 8% 0 23%;
+    }
   }
 
   &__home-button {
@@ -101,13 +106,15 @@
 
 @include breakpoint-md {
   .post {
-    &__footer {
-      padding: 0;
-    }
+    // &__footer {
+    //   @media (min-width: 1025px) {
+    //     margin: 0 8% 0 23%;
+    //   }
+    // }
 
-    &__comments {
-      padding: 0;
-    }
+    // &__comments {
+    //   padding: 0;
+    // }
 
     &__home-button {
       position: fixed;

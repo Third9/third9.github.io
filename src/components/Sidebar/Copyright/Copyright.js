@@ -1,15 +1,14 @@
 // @flow strict
-import React from 'react';
-import styles from './Copyright.module.scss';
+import React from "react";
+import styles from "./Copyright.module.scss";
 
 type Props = {
-  copyright: string
+  copyright: string,
+  device: string,
 };
 
-const Copyright = ({ copyright }: Props) => (
-  <div className={styles['copyright']}>
-    {copyright}
-  </div>
+const Copyright = ({ copyright, device }: Props) => (
+  <div className={device !== "mobile" ? styles["copyright"] : styles["copyright-m"]}>{copyright}</div>
 );
 
 export default Copyright;

@@ -1,7 +1,18 @@
-@import '../../../assets/scss/variables';
-@import '../../../assets/scss/mixins';
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
 
 .copyright {
+  @media (max-width: 43rem) {
+    display: none;
+  }
   color: lighten($color-gray, 18%);
   font-size: $typographic-small-font-size;
+  &-m {
+    @media (min-width: 43rem) {
+      display: none;
+    }
+    color: lighten($color-gray, 18%);
+    font-size: $typographic-small-font-size;
+    padding: 0 1.5rem 1rem 1.25rem;
+  }
 }
