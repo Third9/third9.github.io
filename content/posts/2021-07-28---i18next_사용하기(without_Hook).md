@@ -3,7 +3,7 @@ title: "react-i18next를 hook없이 사용하기"
 date: 2021-07-28T05:37:08.151Z
 template: "post"
 draft: false
-slug: "/posts/react-i18next(without_Hook)/"
+slug: "/posts/react-i18next_without_Hook/"
 category: "develop"
 tags:
   - "javascript"
