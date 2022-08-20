@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Third9's Lounge]]></title><description><![CDATA[Third9's Lounge]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 18 Nov 2021 13:43:33 GMT</lastBuildDate><item><title><![CDATA[실 서비스에 Recoil 활용하기]]></title><description><![CDATA[새로운 서비스에 Recoil를 사용하면서 알게된 구조 및 방법을 정리]]></description><link>https://third9.github.io/posts/recoil_활용하기/</link><guid isPermaLink="false">https://third9.github.io/posts/recoil_활용하기/</guid><pubDate>Sun, 17 Oct 2021 09:23:19 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Third9's Lounge]]></title><description><![CDATA[Third9's Lounge]]></description><link>https://third9.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 20 Aug 2022 13:43:50 GMT</lastBuildDate><item><title><![CDATA[실 서비스에 Recoil 활용하기]]></title><description><![CDATA[새로운 서비스에 Recoil를 사용하면서 알게된 구조 및 방법을 정리]]></description><link>https://third9.github.io/posts/recoil_활용하기/</link><guid isPermaLink="false">https://third9.github.io/posts/recoil_활용하기/</guid><pubDate>Sun, 17 Oct 2021 09:23:19 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;💡 이 글은 예전팀에서 서비스를 개발하는 시점에 Recoil을 활용했던 내용을 정리한 글입니다.
 원래는 21년 초에 작성하려던 글이 계속 밀리면서 이제서야 글을 올립니다.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1349,7 +1349,7 @@ alias to querySelectorAllEval()&lt;/p&gt;
 &lt;p&gt;아래의 이미지는 카페 게시글 목록의 상단에 위치한 elem을 캡쳐한 모습인데, 각 카페 게시글마다 운영진의 설정에 따라서 기본 셋팅이 다르다.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 788px;&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 788px; &quot;
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -1360,32 +1360,32 @@ alias to querySelectorAllEval()&lt;/p&gt;
   &gt;
     &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 13.333333333333334%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAh0lEQVQI102O0QrDIAxF/f/Hfs0+ZC/tgygDYQNXFexsNd6asYYFQnJzk3AURvTeQUSotUqy5nlrTXquNPRGO2qnr1dKkX3Wih+ySClBaw1jDKy1yDmzBeccYowIIeC9rvDuhel5w317gPKBeZnhvZfn6iIUgh/NP7l4vDfqh45B2ITquuM8AeAG6Zoujp6oAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 13.333333333333334%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAiElEQVQI11WPXQoDIQyEvf9N+t477FsP0BYUCkIRV7t9sP4kU2PZxQofE2ImTBT6Y+ZBa+2AiORrqLDPUCMUqqj8m8k5o5QyavEpMUmRUoLWGsaYoTHGsdA5B+89Qgh4vTesjydObsE5XLoRuN5vsNYeO9SccE/zl2jqEfd+10QFnw4To04XCV/uWumOrGwfpgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;picture&gt;
-        &lt;source
-          srcset=&quot;/static/a367959a9c38de065b254366e06cfd4a/8ac56/0419_1.webp 240w,
+          &lt;source
+              srcset=&quot;/static/a367959a9c38de065b254366e06cfd4a/8ac56/0419_1.webp 240w,
 /static/a367959a9c38de065b254366e06cfd4a/d3be9/0419_1.webp 480w,
 /static/a367959a9c38de065b254366e06cfd4a/4d911/0419_1.webp 788w&quot;
-          sizes=&quot;(max-width: 788px) 100vw, 788px&quot;
-          type=&quot;image/webp&quot;
-        /&gt;
-        &lt;source
-          srcset=&quot;/static/a367959a9c38de065b254366e06cfd4a/8ff5a/0419_1.png 240w,
+              sizes=&quot;(max-width: 788px) 100vw, 788px&quot;
+              type=&quot;image/webp&quot;
+            /&gt;
+          &lt;source
+            srcset=&quot;/static/a367959a9c38de065b254366e06cfd4a/8ff5a/0419_1.png 240w,
 /static/a367959a9c38de065b254366e06cfd4a/e85cb/0419_1.png 480w,
 /static/a367959a9c38de065b254366e06cfd4a/ea7fb/0419_1.png 788w&quot;
-          sizes=&quot;(max-width: 788px) 100vw, 788px&quot;
-          type=&quot;image/png&quot;
-        /&gt;
-        &lt;img
-          class=&quot;gatsby-resp-image-image&quot;
-          src=&quot;/static/a367959a9c38de065b254366e06cfd4a/ea7fb/0419_1.png&quot;
-          alt=&quot;0419 1&quot;
-          title=&quot;0419 1&quot;
-          loading=&quot;lazy&quot;
-          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        /&gt;
-      &lt;/picture&gt;
+            sizes=&quot;(max-width: 788px) 100vw, 788px&quot;
+            type=&quot;image/png&quot;
+          /&gt;
+          &lt;img
+            class=&quot;gatsby-resp-image-image&quot;
+            src=&quot;/static/a367959a9c38de065b254366e06cfd4a/ea7fb/0419_1.png&quot;
+            alt=&quot;0419 1&quot;
+            title=&quot;0419 1&quot;
+            loading=&quot;lazy&quot;
+            style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+          /&gt;
+        &lt;/picture&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;네이버 카페의 게시판은 위의 이미지와 같이 카드, 영상, 앨범, 리스트 등의 형태로 볼 수 있게 되어있고 카페별로 기본 형태가 달라서 가져오기 편하고 한화면에 최대한 많은 글들이 보일 수 있도록 변경해줘야 다음작업을 수행하기에 편하다. 카페의 글을 가져오기 전에 선행작업을 통해서 카페글을 최대한 많이 가져올 수 있는 형태로 바꾸자, 먼저 목록 스타일부터 변경해준다.&lt;/p&gt;
@@ -1637,7 +1637,7 @@ alias to querySelectorAllEval()&lt;/p&gt;
 &lt;h4 id=&quot;새로운-기기에서-로그인하였다는-화면&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%EC%83%88%EB%A1%9C%EC%9A%B4-%EA%B8%B0%EA%B8%B0%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%95%98%EC%98%80%EB%8B%A4%EB%8A%94-%ED%99%94%EB%A9%B4&quot; aria-label=&quot;새로운 기기에서 로그인하였다는 화면 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;새로운 기기에서 로그인하였다는 화면&lt;/h4&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 960px; &quot;
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -1648,36 +1648,36 @@ alias to querySelectorAllEval()&lt;/p&gt;
   &gt;
     &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 79.58333333333334%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsSAAALEgHS3X78AAACQUlEQVQ4y3VUzW7TQBjMmyBxoKU8BBdOSEiU3rhy4QmQeAIkuHABISpQkcqhiABpwgUVEAKpB5oIqihxcJzYcX6cAI7/dv2TpMPuGgfHNZYns9q1ZufbbzYFj1CkQai/5JMImIcQzLFgY8zYy9gjZPltGgU+mQafpDSA7Tk4kF/hUD0Q/FEp4VPnLSrSLqr6F4TBXIgmmycoZJ3xj7ig6ZjYqd3Fs9o9PKnewd7xA7xpPMX9w1tsgyKi4ATuX8Fch4moH4QCQRhhwcqLogWikCFYwKcRAn8mOHbnr5QtHKbFXI+g1++jp+tQNQ1dTWXQMDQMeJQJULoEoXE1buYsVwQ599QBum0dve4AHVmDqvTxe2LBsShs04M9JYItBt+LhPP0Oa46ZLu1JnXUjRoa429oTGLUR1V8H37F8fBoFaMjKL+kfIeUhjBdEzfeXcSV0lls7q8zrOHq/jlsVS7g5vtLuFY+j83yGsM6tsobuPz6DG5/vg7fj/JK5lFxUZGf40XzEYrSNl5KjwWKrW2U5B3Byzm2vtd8iA/dkkjFf7uc+7AgU4v9RDlrC+ScIU3lkHWT+KtwiQeHueecXRPdT5pKc7qcgEfoX3BTeRPNi9dPX4qMYHocBjNQEsCyHdiOi6nFosPYnE5B/UCEn6QE41xmzjBpjmXbUPQ2Wl0JTakFradDbivodFT0+yynqgadMd8oa+hUyfGN8SAbTfwYNTAcGTDGEyEyGI4wnvxcct5R5f7bxCXPBdJ3OxknyLrj+AOWE6V1a1xowgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 79.58333333333334%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAAsTAAALEwEAmpwYAAACN0lEQVQ4y4VUTW/TQBDNf4FTob8DcYBLCz8CcUL8BMSBQyvREwIkCiWXSkgRCYdKoAoBB0RRqzRp6qSOYzuJ00Li710naR7jtePYaVosPb3R7M7zrOetc67nIw3PYxH7DJMhMA4gOMQ5xSAeEU/3zNfnwmQa0UYOx3PxVf6En+oucUnE35Ud7Ejb2NO+gbPRrIlUfS6dnHXJYToW3vx+htd7T/Hy1xNs7a/jQ+UV1n48QrG2hSGf0Eu9yzucijIeJBiPgCAYEcYI2Bi+HxC44EiMZRsJO0yLhax3OtDabaiahpamEjR0DQOu78Fj4b4YjIlcKJxuKiPoEauKjpO6AkXW0JCakBstnPX6sE0fVt+FNXBh9h2CC98JEPDzqzuU/0ionZYhnVUS1HplVLr7qHYPcESoxjgyDtD8W8/U59KTtV0HDz/fxt3CdawWb2Ll45LAveIyHny5hfulZawUl2jthsjdKVzD493VywSZ+B4FaRPvDteRrzzH+xj56ga2j18ITnKVDbw9XEOpkb8omIjS1BY+ZGTfDARfeCbIeDHq0PdT1omnKRDFocltxxaczkdT92Yd+qkjz5vbcb2ZccXbecwsWV9Ul7VNKuZ8JAxsWjZ152BgWsQu+gMzuQCLajPfcLpo2TaaehP1FlnoWIKqkidPZMhNBXq7g1ZLha53aJ/z/5sipk3HkYwqap0yCbRhGL1IjESM3qkQDdlxs3VX/G0Y3YCxuAU8GIrjhTyNWczzRw7xD19vpYvplwxOAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;picture&gt;
-        &lt;source
-          srcset=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/8ac56/0314_01.webp 240w,
+          &lt;source
+              srcset=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/8ac56/0314_01.webp 240w,
 /static/7377eaf7fd285f5c03c89da4c92d8bc3/d3be9/0314_01.webp 480w,
 /static/7377eaf7fd285f5c03c89da4c92d8bc3/e46b2/0314_01.webp 960w,
 /static/7377eaf7fd285f5c03c89da4c92d8bc3/f992d/0314_01.webp 1440w,
 /static/7377eaf7fd285f5c03c89da4c92d8bc3/5377c/0314_01.webp 1456w&quot;
-          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
-          type=&quot;image/webp&quot;
-        /&gt;
-        &lt;source
-          srcset=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/8ff5a/0314_01.png 240w,
+              sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+              type=&quot;image/webp&quot;
+            /&gt;
+          &lt;source
+            srcset=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/8ff5a/0314_01.png 240w,
 /static/7377eaf7fd285f5c03c89da4c92d8bc3/e85cb/0314_01.png 480w,
 /static/7377eaf7fd285f5c03c89da4c92d8bc3/d9199/0314_01.png 960w,
 /static/7377eaf7fd285f5c03c89da4c92d8bc3/07a9c/0314_01.png 1440w,
 /static/7377eaf7fd285f5c03c89da4c92d8bc3/3ceac/0314_01.png 1456w&quot;
-          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
-          type=&quot;image/png&quot;
-        /&gt;
-        &lt;img
-          class=&quot;gatsby-resp-image-image&quot;
-          src=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/d9199/0314_01.png&quot;
-          alt=&quot;0314 01&quot;
-          title=&quot;0314 01&quot;
-          loading=&quot;lazy&quot;
-          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        /&gt;
-      &lt;/picture&gt;
+            sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+            type=&quot;image/png&quot;
+          /&gt;
+          &lt;img
+            class=&quot;gatsby-resp-image-image&quot;
+            src=&quot;/static/7377eaf7fd285f5c03c89da4c92d8bc3/d9199/0314_01.png&quot;
+            alt=&quot;0314 01&quot;
+            title=&quot;0314 01&quot;
+            loading=&quot;lazy&quot;
+            style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+          /&gt;
+        &lt;/picture&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;이 화면이 매번 나오는 것이 싫다면, 브라우저의 설정 정보를 추가해야 한다. 위에서 초반에 &lt;code&gt;launch&lt;/code&gt; method를 수행한 것을 기억할거다. 해당 method에 userDataDir param을 선언하고 해당 OS에 적합한 chrome이 설치된 파일 경로를 설정해주면 된다. [&lt;a href=&quot;https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md#Introduction&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;관련문서&lt;/a&gt;]&lt;/p&gt;
@@ -1866,42 +1866,42 @@ alias to querySelectorAllEval()&lt;/p&gt;
 &lt;p&gt;DISQUS를 사용하기 위해서는 필수적으로 계정을 생성해야 합니다. &lt;a href=&quot;https://disqus.com&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;DISQUS&lt;/a&gt; 사이트로 이동하여, &lt;code&gt;Get Started&lt;/code&gt; 를 선택하여 새로운 계정을 생성해 줍니다.
 &lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 960px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 58.333333333333336%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsSAAALEgHS3X78AAACCUlEQVQoz11TyY7TQBD1//FFcOfODSSuIHHigsRIcAAGaTQCpGgmMwohM5klcUiceG335l4e5XachZKeXe2qfrU6+rN2uCFICzQgWA9NUAZwdPZoH+G5E789a3JgymO1ycO3FlFQWqtUZK3gnd9d+Hv+Amx+FnTnDJzl6P1tI5BNP8MZdRQo8taEQ/LlLa6fPoHNkpBZK5vLr2CradBVcYvZt2dEIHcEungM5OXtEA1Lw73Iu+56uhhjdPaewpg+Ho5FwZf3nUXVqCfDoIv4FHIzRZ2MYPgaUVeO20elXk5Tj7gE7lOLeeEIHg8FEDNgkgFZssF68Knzzx6JdATNZpDJAFG9HGx7ZKl/JgzleqFxOZfhPV4qTBOFi5nEaEHfYgVlu+Ai+Y0qvoI1DcTyAjy5QcSXw6PJtaUaLaBFBacZrOYQNUMjayhewRiLOp0gH78Lw28kCxWKukS2mlDJvgunk19Q6SjoTHu8Ogde/gRe/3DIaQ686dBKQz3U5Tzohqat6SyVRlEV3dq0wu8+gN197C5QS68eVvh++obKZKGvjtbJHqxUqIUy000Dax3Bkt1t9/DQyW8HJGIsTp4TU9Ubjvat9VNKIs+zgCzLkKbpPsM2Ql5WEELCkK4FNZ9+H0pqSwAcBjfGgHO+A2MMZVnuCVuSiksqwYQmK6UC+ox7st7f+//3tJN/WqyeZqsgTVgAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 58.333333333333336%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVQoz22T227TQBCG/X48EYIXQYKrSsAdQkJw04vSCoEiESqaQ6OmVZpDEydxvLbXe/Tuz3jjuImEpfHueme+/WdnHI23DoOVQ6EB7ckqH0wajwoAfaJXeLePb9a1PzfAcrODtVX4FjnapHh468jDBIL3Lmwm/Y9gD1/D3DmH+ogaFozW7PESRqYnB0Xe7cl57wrDly+gH0c46EluLrC774S5pcDZ5SsYHrcAmdyTrwefj6HTOMQ9A7cTdL+9gRWscXfHSdZI2E2fRhP2xOR2D407EOsRitUARmwRHdLBEWbOHOICeGIVlpnDqvB4yoG1BCZ0XpKWiH9+QkVibLGEmPeh8hnUtocon//Ya6BN7yzqOx0sDX5PFf4uNG7IHjYa3alGb6HwZ6aQyaYo2RzZtAujFCSp56shIjY+P6lcuC8tSX5G2ZEswyF4DiUKqDKHVpLGDXa37+Gsgia/ulxK5GDxmFKu9B7C7qCT/j5tYn+49njXBd52PJbElZZaRDcHGgmxGYV5ZXWAKuqQlCVUlEaZXHxHNjxrgdezEudXn/Hrbh16tKJ7NtRf7iiTOtYYQzXwoQ712AIPvff8FFh8eU3DpIl2p41N6xrGGEOapsF2u+QY6JEVHKUQsFVFF60hc0nK0DQz2qYOqZJPWZbgnJOVyPMiwFtgLTnjAlKbMNeagFS9Q0u1f8iRgP/ZP2+OnkrznFiLAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;picture&gt;
-        &lt;source
-          srcset=&quot;/static/66dd44343c8cd68f9b78788a8e585200/8ac56/1.webp 240w,
+          &lt;source
+              srcset=&quot;/static/66dd44343c8cd68f9b78788a8e585200/8ac56/1.webp 240w,
 /static/66dd44343c8cd68f9b78788a8e585200/d3be9/1.webp 480w,
 /static/66dd44343c8cd68f9b78788a8e585200/e46b2/1.webp 960w,
 /static/66dd44343c8cd68f9b78788a8e585200/f992d/1.webp 1440w,
 /static/66dd44343c8cd68f9b78788a8e585200/882b9/1.webp 1920w,
 /static/66dd44343c8cd68f9b78788a8e585200/129b4/1.webp 2172w&quot;
-          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
-          type=&quot;image/webp&quot;
-        /&gt;
-        &lt;source
-          srcset=&quot;/static/66dd44343c8cd68f9b78788a8e585200/8ff5a/1.png 240w,
+              sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+              type=&quot;image/webp&quot;
+            /&gt;
+          &lt;source
+            srcset=&quot;/static/66dd44343c8cd68f9b78788a8e585200/8ff5a/1.png 240w,
 /static/66dd44343c8cd68f9b78788a8e585200/e85cb/1.png 480w,
 /static/66dd44343c8cd68f9b78788a8e585200/d9199/1.png 960w,
 /static/66dd44343c8cd68f9b78788a8e585200/07a9c/1.png 1440w,
 /static/66dd44343c8cd68f9b78788a8e585200/29114/1.png 1920w,
 /static/66dd44343c8cd68f9b78788a8e585200/6976b/1.png 2172w&quot;
-          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
-          type=&quot;image/png&quot;
-        /&gt;
-        &lt;img
-          class=&quot;gatsby-resp-image-image&quot;
-          src=&quot;/static/66dd44343c8cd68f9b78788a8e585200/d9199/1.png&quot;
-          alt=&quot;1&quot;
-          title=&quot;1&quot;
-          loading=&quot;lazy&quot;
-          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        /&gt;
-      &lt;/picture&gt;
+            sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+            type=&quot;image/png&quot;
+          /&gt;
+          &lt;img
+            class=&quot;gatsby-resp-image-image&quot;
+            src=&quot;/static/66dd44343c8cd68f9b78788a8e585200/d9199/1.png&quot;
+            alt=&quot;1&quot;
+            title=&quot;1&quot;
+            loading=&quot;lazy&quot;
+            style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+          /&gt;
+        &lt;/picture&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;계정을 생성할때 &lt;code&gt;Website URL&lt;/code&gt;에는 서비스하고자 하는 블로그의 주소를 입력하고, &lt;code&gt;Shortname&lt;/code&gt;에는 DISQUS를 gatsby와 연동할 경우에 사용할 nickname(ID)를 입력합니다. &lt;code&gt;Shortname&lt;/code&gt; 의 경우에는unique 한 값으로 한번 선택하면 변경할 수 없기에 잘 선택해야 합니다.&lt;/p&gt;
 &lt;h3 id=&quot;gatsby에-disqus-연동&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#gatsby%EC%97%90-disqus-%EC%97%B0%EB%8F%99&quot; aria-label=&quot;gatsby에 disqus 연동 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;#&lt;strong&gt;gatsby에&lt;/strong&gt; DISQUS &lt;strong&gt;연동&lt;/strong&gt;&lt;/h3&gt;
@@ -1944,7 +1944,7 @@ github의 page를 이용하는경우 &lt;code&gt;gatsby build&lt;/code&gt; 를 �
 &lt;p&gt;계정을 생성한 뒤에 Sites 화면을 보면 아래와 같은 화면을 취하고 있습니다.(저는 이미 site를 하나 등록해 두었기에 아래와 같이 존재하는 domain이 있습니다.)
 &lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 960px; &quot;
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -1955,44 +1955,44 @@ github의 page를 이용하는경우 &lt;code&gt;gatsby build&lt;/code&gt; 를 �
   &gt;
     &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 49.16666666666667%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsSAAALEgHS3X78AAABVElEQVQoz62QT0sCURTF36ZFOlAQMxOYkhFKtciihPw87SLctQnaW58gKMM/ExQRfYbWYbZqGy50JhoXChO+eTOn+yY1J8ZVPfjx7uWdc7j3sWRuD9mdAjZ2C8hs5ZHJ5aGlM1CXw2jpbCTyTV/JYp28a5vbYAupVSh6EspiCnF56ynMqgnEtCXEVEkCcS2JmXl9Kgpp5kijkJ7tHxRh3NzhvFxBuWrgslonjKAOqBm4ql3/9EO+dXVcVGo4Oj1DsVTC4fEJ2O39A/56Xu13NG0Ljy9NsLZp4anxjLdWCx+2jV6/D845XNcNYXe7aHc6aJsmTMtCr9fHYDCAcMU4mFPPhOfDcRxwMvm+DyFEcEuizujN87xxLaiWeFQzV4iQeLKWk8kpJuHcDcImw0c+GUqB3tS/kcbfgaMNovU0ISeBNEbjh6YIVh2uG4Wg4dgnrfCffAHRB5JNajJGaAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 49.16666666666667%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABWElEQVQoz62P3UoCURSFz4VBopGBo6AZhtEgkRRMRNKj9AKF3QVdFtRtUVn+FPgGvYDXQUHhRW8QyRg2QjhKzs9xNeeMI8M4XdWGjzP7nDVrr03S0jayUh4rG3mI65tYykkQ0ssTxBZFX9hbIpNFTtqCuLoGMpfKIBRLIRxfQCie4kxHEwgKSQSjSfu0CMzGEIhMMhWJI2TpZoR5hC3I/sEhSnc1nF+XcVmq2pSruCrfcooVm/HbiIubCj/PiiXsHR2jcHKKnd0CyMPjE/5aL/I7Xr8U3NfrIG/NJp4bDTRlGUqng16/D90wYLjQdR3tTwVyq8X5aLeh9nrQrHvTNMfG3a4KYpgUqqryHymlXDAcDjnecu69OpP11AS1vglr/IoJ9VE6N2ywM8wxdHoW7ldDsMlWisFAg6ZpGIzgK/qkZ8W8+MqU2mt4cSdw46dlHjzht27gP/kBV06PgEfqvVEAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;picture&gt;
-        &lt;source
-          srcset=&quot;/static/18c164b5a09eff9f8cd9f9ef42050349/8ac56/2.webp 240w,
+          &lt;source
+              srcset=&quot;/static/18c164b5a09eff9f8cd9f9ef42050349/8ac56/2.webp 240w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/d3be9/2.webp 480w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/e46b2/2.webp 960w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/f992d/2.webp 1440w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/882b9/2.webp 1920w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/bca93/2.webp 2500w&quot;
-          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
-          type=&quot;image/webp&quot;
-        /&gt;
-        &lt;source
-          srcset=&quot;/static/18c164b5a09eff9f8cd9f9ef42050349/8ff5a/2.png 240w,
+              sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+              type=&quot;image/webp&quot;
+            /&gt;
+          &lt;source
+            srcset=&quot;/static/18c164b5a09eff9f8cd9f9ef42050349/8ff5a/2.png 240w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/e85cb/2.png 480w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/d9199/2.png 960w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/07a9c/2.png 1440w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/29114/2.png 1920w,
 /static/18c164b5a09eff9f8cd9f9ef42050349/eb645/2.png 2500w&quot;
-          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
-          type=&quot;image/png&quot;
-        /&gt;
-        &lt;img
-          class=&quot;gatsby-resp-image-image&quot;
-          src=&quot;/static/18c164b5a09eff9f8cd9f9ef42050349/d9199/2.png&quot;
-          alt=&quot;2&quot;
-          title=&quot;2&quot;
-          loading=&quot;lazy&quot;
-          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        /&gt;
-      &lt;/picture&gt;
+            sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+            type=&quot;image/png&quot;
+          /&gt;
+          &lt;img
+            class=&quot;gatsby-resp-image-image&quot;
+            src=&quot;/static/18c164b5a09eff9f8cd9f9ef42050349/d9199/2.png&quot;
+            alt=&quot;2&quot;
+            title=&quot;2&quot;
+            loading=&quot;lazy&quot;
+            style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+          /&gt;
+        &lt;/picture&gt;
   &lt;/a&gt;
     &lt;/span&gt;
 위의 화면에서 &lt;code&gt;New site from Git&lt;/code&gt;을 선택하면 아래와 같이 Wizard 형식으로 연결하고자 하는 Git환경을 선택하고 설정 할 수 있습니다.
 &lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 960px; &quot;
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -2003,38 +2003,38 @@ github의 page를 이용하는경우 &lt;code&gt;gatsby build&lt;/code&gt; 를 �
   &gt;
     &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 50.83333333333333%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsSAAALEgHS3X78AAABdUlEQVQoz5VRy0rDQBTNQuvWSqFVNwURxJU/4daFv+FOREFQ8D+0tY/0IX6CCwv6F4JYbG3Tpm1qm2Qykxznjo6E+sIDZy537txzH2OkNrawkFrFfDKNxFJG2TgTycyvnFtMI7mSRXZ9E8vZNRgHxycw69e4KJSRK5q4NKsoVuooVGrS1pAvV5AvaZrIfcNzmVuqXmF7ZxdG4+4es/A8D0EQgPk+/oO9/UMYN7cN5fg+QyhCWLaNh2YTj61nPLXbGI5GGI/HcCSnrgvGAviMqYKcc0UmfcLR6RmMQF4QoihSlgsBT3bGZAJBSJ/H3lAyxcIw/LzTuRM5mRF+OPrydTJBr9dHr99Hp9OFKx8RSGCWOid6FwAPIxgiVklVmU7RtSwlSHQcR41tDwbKunJsKuLLKaKZZhgXXwVpV5bs0B4MlW21X9TuKK7H1NDjqlzJQMQENWjZ9EG0K7LUzazQT1CCdJCokD/MJWmncVJxilNM/EEa+Q25LcFPwVQPoQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 50.83333333333333%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABdUlEQVQoz5VRy0rDQBTNQuvWSqFVNwURxJU/4daFv+FOREFQ8D+0tY/0IX6CCwv6F4JYbG3Tpm1qm2Qykxznjo6E+sIDZy537txzH2OkNrawkFrFfDKNxFJG2TgTycyvnFtMI7mSRXZ9E8vZNRgHxycw69e4KJSRK5q4NKsoVuooVGrS1pAvV5AvaZrIfcNzmVuqXmF7ZxdG4+4es/A8D0EQgPk+/oO9/UMYN7cN5fg+QyhCWLaNh2YTj61nPLXbGI5GGI/HcCSnrgvGAviMqYKcc0UmfcLR6RmMQF4QoihSlgsBT3bGZAJBSJ/H3lAyxcIw/LzTuRM5mRF+OPrydTJBr9dHr99Hp9OFKx8RSGCWOid6FwAPIxgiVklVmU7RtSwlSHQcR41tDwbKunJsKuLLKaKZZhgXXwVpV5bs0B4MlW21X9TuKK7H1NDjqlzJQMQENWjZ9EG0K7LUzazQT1CCdJCokD/MJWmncVJxilNM/EEa+Q25LcFPwVQPoQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;picture&gt;
-        &lt;source
-          srcset=&quot;/static/78885e625b345d5e305032d8f8531ac6/8ac56/3.webp 240w,
+          &lt;source
+              srcset=&quot;/static/78885e625b345d5e305032d8f8531ac6/8ac56/3.webp 240w,
 /static/78885e625b345d5e305032d8f8531ac6/d3be9/3.webp 480w,
 /static/78885e625b345d5e305032d8f8531ac6/e46b2/3.webp 960w,
 /static/78885e625b345d5e305032d8f8531ac6/f992d/3.webp 1440w,
 /static/78885e625b345d5e305032d8f8531ac6/882b9/3.webp 1920w,
 /static/78885e625b345d5e305032d8f8531ac6/3912a/3.webp 2520w&quot;
-          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
-          type=&quot;image/webp&quot;
-        /&gt;
-        &lt;source
-          srcset=&quot;/static/78885e625b345d5e305032d8f8531ac6/8ff5a/3.png 240w,
+              sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+              type=&quot;image/webp&quot;
+            /&gt;
+          &lt;source
+            srcset=&quot;/static/78885e625b345d5e305032d8f8531ac6/8ff5a/3.png 240w,
 /static/78885e625b345d5e305032d8f8531ac6/e85cb/3.png 480w,
 /static/78885e625b345d5e305032d8f8531ac6/d9199/3.png 960w,
 /static/78885e625b345d5e305032d8f8531ac6/07a9c/3.png 1440w,
 /static/78885e625b345d5e305032d8f8531ac6/29114/3.png 1920w,
 /static/78885e625b345d5e305032d8f8531ac6/9b204/3.png 2520w&quot;
-          sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
-          type=&quot;image/png&quot;
-        /&gt;
-        &lt;img
-          class=&quot;gatsby-resp-image-image&quot;
-          src=&quot;/static/78885e625b345d5e305032d8f8531ac6/d9199/3.png&quot;
-          alt=&quot;3&quot;
-          title=&quot;3&quot;
-          loading=&quot;lazy&quot;
-          style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
-        /&gt;
-      &lt;/picture&gt;
+            sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+            type=&quot;image/png&quot;
+          /&gt;
+          &lt;img
+            class=&quot;gatsby-resp-image-image&quot;
+            src=&quot;/static/78885e625b345d5e305032d8f8531ac6/d9199/3.png&quot;
+            alt=&quot;3&quot;
+            title=&quot;3&quot;
+            loading=&quot;lazy&quot;
+            style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+          /&gt;
+        &lt;/picture&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;자신이 사용하는 Git 저장소를 선택한 뒤에 해당 Git 저장소의 인증을 거친 후 Repo와 branch를 선택하여 설정을 마무리 하면 됩니다.&lt;/p&gt;
